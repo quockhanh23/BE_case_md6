@@ -29,15 +29,15 @@ public class UserPrinciple implements UserDetails {
         this.roles = roles;
     }
 
-    public static UserPrinciple build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+    public static UserPrinciple build(ProfileUser profileUser) {
+        List<GrantedAuthority> authorities = profileUser.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName())
         ).collect(Collectors.toList());
 
         return new UserPrinciple(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
+                profileUser.getId(),
+                profileUser.getUsername(),
+                profileUser.getPassword(),
                 authorities
         );
     }

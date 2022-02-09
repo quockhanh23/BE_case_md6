@@ -1,6 +1,6 @@
 package com.example.backendmd6.service.impl;
 
-import com.example.backendmd6.model.User;
+import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.UserPrinciple;
 import com.example.backendmd6.repository.UserRepository;
 import com.example.backendmd6.service.UserService;
@@ -21,41 +21,41 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        ProfileUser profileUser = userRepository.findByUsername(username);
+        if (profileUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        if (this.checkLogin(user)) {
-            return UserPrinciple.build(user);
+        if (this.checkLogin(profileUser)) {
+            return UserPrinciple.build(profileUser);
         }
         boolean enable = false;
         boolean accountNonExpired = false;
         boolean credentialsNonExpired = false;
         boolean accountNonLocked = false;
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), enable, accountNonExpired, credentialsNonExpired,
+        return new org.springframework.security.core.userdetails.User(profileUser.getUsername(),
+                profileUser.getPassword(), enable, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, null);
     }
 
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public void save(ProfileUser profileUser) {
+        userRepository.save(profileUser);
     }
 
     @Override
-    public Iterable<User> findAll() {
+    public Iterable<ProfileUser> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User findByUsername(String username) {
+    public ProfileUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public User getCurrentUser() {
-        User user;
+    public ProfileUser getCurrentUser() {
+        ProfileUser profileUser;
         String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -64,18 +64,18 @@ public class UserServiceImpl implements UserService {
         } else {
             userName = principal.toString();
         }
-        user = this.findByUsername(userName);
-        return user;
+        profileUser = this.findByUsername(userName);
+        return profileUser;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<ProfileUser> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
     public UserDetails loadUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<ProfileUser> user = userRepository.findById(id);
         if (!user.isPresent()) {
             throw new NullPointerException();
         }
@@ -83,13 +83,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkLogin(User user) {
-        Iterable<User> users = this.findAll();
+    public boolean checkLogin(ProfileUser profileUser) {
+        Iterable<ProfileUser> users = this.findAll();
         boolean isCorrectUser = false;
-        for (User currentUser : users) {
-            if (currentUser.getUsername().equals(user.getUsername())
-                    && user.getPassword().equals(currentUser.getPassword())&&
-                    currentUser.isEnabled()) {
+        for (ProfileUser currentProfileUser : users) {
+            if (currentProfileUser.getUsername().equals(profileUser.getUsername())
+                    && profileUser.getPassword().equals(currentProfileUser.getPassword())&&
+                    currentProfileUser.isEnabled()) {
                 isCorrectUser = true;
             }
         }
@@ -97,11 +97,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isRegister(User user) {
+    public boolean isRegister(ProfileUser profileUser) {
         boolean isRegister = false;
-        Iterable<User> users = this.findAll();
-        for (User currentUser : users) {
-            if (user.getUsername().equals(currentUser.getUsername())) {
+        Iterable<ProfileUser> users = this.findAll();
+        for (ProfileUser currentProfileUser : users) {
+            if (profileUser.getUsername().equals(currentProfileUser.getUsername())) {
                 isRegister = true;
                 break;
             }
@@ -110,15 +110,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isCorrectConfirmPassword(User user) {
+    public boolean isCorrectConfirmPassword(ProfileUser profileUser) {
         boolean isCorrentConfirmPassword = false;
-        if(user.getPassword().equals(user.getConfirmPassword())){
+        if(profileUser.getPassword().equals(profileUser.getConfirmPassword())){
             isCorrentConfirmPassword = true;
         }
         return isCorrentConfirmPassword;
     }
     @Override
-    public void delete(User user){
-        userRepository.delete(user);
+    public void delete(ProfileUser profileUser){
+        userRepository.delete(profileUser);
     }
 }

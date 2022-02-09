@@ -1,28 +1,28 @@
 package com.example.backendmd6.service;
 
-import com.example.backendmd6.model.User;
+import com.example.backendmd6.model.ProfileUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    void save(User user);
+    void save(ProfileUser profileUser);
 
-    Iterable<User> findAll();
+    Iterable<ProfileUser> findAll();
 
-    User findByUsername(String username);
+    ProfileUser findByUsername(String username);
 
-    User getCurrentUser();
+    ProfileUser getCurrentUser();
 
-    Optional<User> findById(Long id);
+    Optional<ProfileUser> findById(Long id);
 
     UserDetails loadUserById(Long id);
 
-    boolean checkLogin(User user);
+    boolean checkLogin(ProfileUser profileUser);
 
-    boolean isRegister(User user);
+    boolean isRegister(ProfileUser profileUser);
 
-    boolean isCorrectConfirmPassword(User user);
-    void delete(User entity);
+    boolean isCorrectConfirmPassword(ProfileUser profileUser);
+    void delete(ProfileUser entity);
 }
