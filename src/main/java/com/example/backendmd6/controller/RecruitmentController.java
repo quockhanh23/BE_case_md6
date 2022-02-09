@@ -28,4 +28,9 @@ public class RecruitmentController {
         Optional<Recruitment> recruitment = recruitmentService.findById(id);
         return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
     }
+    @PostMapping
+    public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
+        recruitmentService.save(recruitment);
+        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
+    }
 }
