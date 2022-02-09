@@ -1,4 +1,6 @@
 package com.example.backendmd6.service;
 
-public interface StatusRecruitmentService extends GeneralService<StatusRecruitmentService>{
+import com.example.backendmd6.model.StatusRecruitment;
+
+public interface StatusRecruitmentService extends GeneralService<StatusRecruitment>{
 }
