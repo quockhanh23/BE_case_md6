@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         boolean accountNonExpired = false;
         boolean credentialsNonExpired = false;
         boolean accountNonLocked = false;
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(), enable, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, null);
     }
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         Iterable<ProfileUser> users = this.findAll();
         boolean isCorrectUser = false;
         for (ProfileUser currentUser : users) {
-            if (currentUser.getUsername().equals(user.getUsername())
+            if (currentUser.getEmail().equals(user.getEmail())
                     && user.getPassword().equals(currentUser.getPassword())&&
                     currentUser.isEnabled()) {
                 isCorrectUser = true;
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         boolean isRegister = false;
         Iterable<ProfileUser> users = this.findAll();
         for (ProfileUser currentUser : users) {
-            if (user.getUsername().equals(currentUser.getUsername())) {
+            if (user.getEmail().equals(currentUser.getEmail())) {
                 isRegister = true;
                 break;
             }

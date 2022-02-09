@@ -14,10 +14,16 @@ public class ProfileUser implements Serializable {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false)
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String confirmPassword;
@@ -29,10 +35,13 @@ public class ProfileUser implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    public ProfileUser(String username, String password, String confirmPassword, Set<Role> roles) {
-        this.username = username;
+    public ProfileUser(String email, String password, String fullName, String phoneNumber, String confirmPassword, boolean enabled, Set<Role> roles) {
+        this.email = email;
         this.password = password;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
         this.confirmPassword = confirmPassword;
+        this.enabled = enabled;
         this.roles = roles;
     }
 
@@ -51,12 +60,12 @@ public class ProfileUser implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getPassword() {
@@ -89,5 +98,21 @@ public class ProfileUser implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
