@@ -46,8 +46,7 @@ public class RecruitmentController {
         if (Objects.equals(q, "")) {
             recruitments = recruitmentService.findAll();
         } else {
-            recruitments = recruitmentService.findAllByJobContaining(q);
-
+            recruitments = recruitmentService.findAllByCityContaining(q);
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }

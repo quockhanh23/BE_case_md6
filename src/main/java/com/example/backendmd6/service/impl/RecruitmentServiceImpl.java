@@ -36,7 +36,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
-    public Iterable<Recruitment> findAllByJobContaining(String title) {
-        return recruitmentRepository.findAllByTitleContaining(title);
+    public Iterable<Recruitment> findAllByCityContaining(String title) {
+        return recruitmentRepository.findAllByAddressContaining(title);
     }
 }
