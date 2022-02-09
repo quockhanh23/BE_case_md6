@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "userTable")
-public class User implements Serializable {
+public class ProfileUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,14 +29,14 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    public User(String username, String password, String confirmPassword, Set<Role> roles) {
+    public ProfileUser(String username, String password, String confirmPassword, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.roles = roles;
     }
 
-    public User() {
+    public ProfileUser() {
     }
 
     public static long getSerialVersionUID() {

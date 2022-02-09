@@ -2,7 +2,7 @@ package com.example.backendmd6.controller;
 
 import com.example.backendmd6.model.JwtResponse;
 import com.example.backendmd6.model.Role;
-import com.example.backendmd6.model.User;
+import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.service.RoleService;
 import com.example.backendmd6.service.UserService;
 import com.example.backendmd6.service.impl.JwtService;
@@ -50,18 +50,18 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> showAllUser() {
-        Iterable<User> users = userService.findAll();
+    public ResponseEntity<Iterable<ProfileUser>> showAllUser() {
+        Iterable<ProfileUser> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping("/register/enterprise")
-    public ResponseEntity<User> createEnterprise(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<ProfileUser> createEnterprise(@RequestBody ProfileUser user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Iterable<User> users = userService.findAll();
-        for (User currentUser : users) {
+        Iterable<ProfileUser> users = userService.findAll();
+        for (ProfileUser currentUser : users) {
             if (currentUser.getUsername().equals(user.getUsername())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -87,12 +87,12 @@ public class UserController {
     }
 
     @PostMapping("/register/user")
-    public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<ProfileUser> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Iterable<User> users = userService.findAll();
-        for (User currentUser : users) {
+        Iterable<ProfileUser> users = userService.findAll();
+        for (ProfileUser currentUser : users) {
             if (currentUser.getUsername().equals(user.getUsername())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -117,7 +117,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody ProfileUser user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
@@ -125,19 +125,19 @@ public class UserController {
 
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByUsername(user.getUsername());
+        ProfileUser currentUser = userService.findByUsername(user.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getProfile(@PathVariable Long id) {
-        Optional<User> userOptional = this.userService.findById(id);
+    public ResponseEntity<ProfileUser> getProfile(@PathVariable Long id) {
+        Optional<ProfileUser> userOptional = this.userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> userOptional = this.userService.findById(id);
+    public ResponseEntity<ProfileUser> updateUserProfile(@PathVariable Long id, @RequestBody ProfileUser user) {
+        Optional<ProfileUser> userOptional = this.userService.findById(id);
         if (!userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -152,8 +152,8 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<User> delete(Long idU){
-        Optional<User> user = this.userService.findById(idU);
+    public ResponseEntity<ProfileUser> delete(Long idU){
+        Optional<ProfileUser> user = this.userService.findById(idU);
         this.userService.delete(user.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }

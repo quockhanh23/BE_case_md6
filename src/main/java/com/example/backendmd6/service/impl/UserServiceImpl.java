@@ -1,6 +1,6 @@
 package com.example.backendmd6.service.impl;
 
-import com.example.backendmd6.model.User;
+import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.UserPrinciple;
 import com.example.backendmd6.repository.UserRepository;
 import com.example.backendmd6.service.UserService;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        ProfileUser user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -39,23 +39,23 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void save(User user) {
+    public void save(ProfileUser user) {
         userRepository.save(user);
     }
 
     @Override
-    public Iterable<User> findAll() {
+    public Iterable<ProfileUser> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User findByUsername(String username) {
+    public ProfileUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public User getCurrentUser() {
-        User user;
+    public ProfileUser getCurrentUser() {
+        ProfileUser user;
         String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -69,13 +69,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<ProfileUser> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
     public UserDetails loadUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<ProfileUser> user = userRepository.findById(id);
         if (!user.isPresent()) {
             throw new NullPointerException();
         }
@@ -83,10 +83,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkLogin(User user) {
-        Iterable<User> users = this.findAll();
+    public boolean checkLogin(ProfileUser user) {
+        Iterable<ProfileUser> users = this.findAll();
         boolean isCorrectUser = false;
-        for (User currentUser : users) {
+        for (ProfileUser currentUser : users) {
             if (currentUser.getUsername().equals(user.getUsername())
                     && user.getPassword().equals(currentUser.getPassword())&&
                     currentUser.isEnabled()) {
@@ -97,10 +97,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isRegister(User user) {
+    public boolean isRegister(ProfileUser user) {
         boolean isRegister = false;
-        Iterable<User> users = this.findAll();
-        for (User currentUser : users) {
+        Iterable<ProfileUser> users = this.findAll();
+        for (ProfileUser currentUser : users) {
             if (user.getUsername().equals(currentUser.getUsername())) {
                 isRegister = true;
                 break;
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isCorrectConfirmPassword(User user) {
+    public boolean isCorrectConfirmPassword(ProfileUser user) {
         boolean isCorrentConfirmPassword = false;
         if(user.getPassword().equals(user.getConfirmPassword())){
             isCorrentConfirmPassword = true;
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         return isCorrentConfirmPassword;
     }
     @Override
-    public void delete(User user){
+    public void delete(ProfileUser user){
         userRepository.delete(user);
     }
 }
