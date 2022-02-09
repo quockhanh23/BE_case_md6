@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<ProfileUser, Long> {
+public interface ProfileUserRepository extends JpaRepository<ProfileUser, Long> {
     ProfileUser findByUsername(String username);
     void delete(ProfileUser entity);
 }

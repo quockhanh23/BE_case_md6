@@ -2,7 +2,7 @@ package com.example.backendmd6.service.impl;
 
 import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.UserPrinciple;
-import com.example.backendmd6.repository.UserRepository;
+import com.example.backendmd6.repository.ProfileUserRepository;
 import com.example.backendmd6.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepository;
+    private ProfileUserRepository userRepository;
 
     @Override
     @Transactional
