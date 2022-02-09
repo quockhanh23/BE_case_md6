@@ -45,7 +45,7 @@ public class UserController {
     private ProfileUserService userService;
 
     @Autowired
-    private ProfileEnterpriseService profileUserService;
+    private ProfileEnterpriseService profileEnterpriseService;
 
     @Autowired
     private RoleService roleService;
@@ -66,13 +66,13 @@ public class UserController {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Iterable<ProfileEnterprise> users = profileUserService.findAll();
+        Iterable<ProfileEnterprise> users = profileEnterpriseService.findAll();
         for (ProfileEnterprise currentUser : users) {
             if (currentUser.getEmail().equals(user.getEmail())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        if (!profileUserService.isCorrectConfirmPassword(user)) {
+        if (!profileEnterpriseService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (user.getRoles() != null) {
@@ -89,7 +89,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
 //        user.setStatusEnterpriseId();
-        profileUserService.save(user);
+        profileEnterpriseService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -132,9 +132,23 @@ public class UserController {
 
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        ProfileUser currentUser = userService.findByUsername(user.getEmail());
+        ProfileUser currentUser = userService.findByEmail(user.getEmail());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
+
+    @PostMapping("/login/enterprise")
+    public ResponseEntity<?> login2(@RequestBody ProfileEnterprise user) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtService.generateTokenLogin(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ProfileEnterprise currentUser = profileEnterpriseService.findByEmail(user.getEmail());
+        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+    }
+
 
     @GetMapping("/users/{id}")
     public ResponseEntity<ProfileUser> getProfile(@PathVariable Long id) {

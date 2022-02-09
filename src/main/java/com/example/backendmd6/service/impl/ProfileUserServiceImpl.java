@@ -49,7 +49,7 @@ public class ProfileUserServiceImpl implements ProfileUserService {
     }
 
     @Override
-    public ProfileUser findByUsername(String username) {
+    public ProfileUser findByEmail(String username) {
         return userRepository.findByEmail(username);
     }
 
@@ -64,7 +64,7 @@ public class ProfileUserServiceImpl implements ProfileUserService {
         } else {
             userName = principal.toString();
         }
-        user = this.findByUsername(userName);
+        user = this.findByEmail(userName);
         return user;
     }
 

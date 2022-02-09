@@ -11,7 +11,7 @@ public interface ProfileUserService extends UserDetailsService {
 
     Iterable<ProfileUser> findAll();
 
-    ProfileUser findByUsername(String username);
+    ProfileUser findByEmail(String username);
 
     ProfileUser getCurrentUser();
 
