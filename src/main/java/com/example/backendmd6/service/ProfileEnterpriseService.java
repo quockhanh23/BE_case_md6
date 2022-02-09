@@ -26,4 +26,5 @@ public interface ProfileEnterpriseService extends UserDetailsService {
 
     boolean isCorrectConfirmPassword(ProfileEnterprise user);
     void delete(ProfileEnterprise entity);
+
 }

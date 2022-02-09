@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.Optional;
 
 @Service
@@ -66,11 +65,10 @@ public class ProfileEnterpriseServiceImpl implements ProfileEnterpriseService {
         user = this.findByEmail(email);
         return user;
     }
-
-    @Override
-    public Optional<ProfileEnterprise> findById(Long id) {
-        return profileEnterpriseRepository.findById(id);
-    }
+        @Override
+        public Optional<ProfileEnterprise> findById (Long id){
+            return profileEnterpriseRepository.findById(id);
+        }
 
     @Override
     public UserDetails loadUserById(Long id) {
