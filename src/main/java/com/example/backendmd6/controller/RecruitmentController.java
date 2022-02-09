@@ -18,19 +18,19 @@ public class RecruitmentController {
     private RecruitmentService recruitmentService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Recruitment>> showAllRecruitment() {
+    public ResponseEntity<Iterable<Recruitment>> showAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Recruitment> detail(@PathVariable Long id) {
-        Optional<Recruitment> recruitment = recruitmentService.findById(id);
-        return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
-    }
-    @PostMapping
-    public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
-        recruitmentService.save(recruitment);
-        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
-    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Recruitment> detail(@PathVariable Long id) {
+//        Optional<Recruitment> recruitment = recruitmentService.findById(id);
+//        return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
+//    }
+//    @PostMapping
+//    public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
+//        recruitmentService.save(recruitment);
+//        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
+//    }
 }
