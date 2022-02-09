@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -40,9 +41,9 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
     @GetMapping("name/{q}")
-    public ResponseEntity<Iterable<Recruitment>> search(String q) {
+    public ResponseEntity<Iterable<Recruitment>> search(@PathVariable String q) {
         Iterable<Recruitment> recruitments;
-        if (q=="") {
+        if (Objects.equals(q, "")) {
             recruitments = recruitmentService.findAll();
         } else {
             recruitments = recruitmentService.findAllByJobContaining(q);
