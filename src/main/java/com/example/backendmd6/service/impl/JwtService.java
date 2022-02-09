@@ -50,10 +50,11 @@ public class JwtService {
 
     public String getUserNameFromJwtToken(String token) {
 
-        String userName = Jwts.parser()
+        String email = Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody().getSubject();
-        return userName;
+        return email;
+
     }
 }

@@ -3,7 +3,9 @@ package com.example.backendmd6.security;
 import com.example.backendmd6.security.jwt.CustomAccessDeniedHandler;
 import com.example.backendmd6.security.jwt.JwtAuthenticationFilter;
 import com.example.backendmd6.security.jwt.RestAuthenticationEntryPoint;
+import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.ProfileUserService;
+import com.example.backendmd6.service.impl.ProfileEnterpriseServiceImpl;
 import com.example.backendmd6.service.impl.ProfileUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,14 +28,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public ProfileUserService userService() {
-        return new ProfileUserServiceImpl();
-    }
-
+//    @Bean
+//    public ProfileUserService userService() {
+//        return new ProfileUserServiceImpl();
+//    }
+//    @Bean
+//    public ProfileEnterpriseService enterpriseService(){
+//        return new ProfileEnterpriseServiceImpl();
+//    }
     @Autowired
-    private ProfileUserService userService;
-
+    private ProfileUserService profileUserService;
+    @Autowired
+    private ProfileEnterpriseService profileEnterpriseService;
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
@@ -63,9 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(profileUserService).passwordEncoder(passwordEncoder());
     }
-
+    @Autowired
+    public void configureGlobalSecurity2(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(profileEnterpriseService).passwordEncoder(passwordEncoder());
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");

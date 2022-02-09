@@ -1,8 +1,10 @@
 package com.example.backendmd6.controller;
 
 import com.example.backendmd6.model.JwtResponse;
+import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Role;
 import com.example.backendmd6.model.ProfileUser;
+import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RoleService;
 import com.example.backendmd6.service.ProfileUserService;
 import com.example.backendmd6.service.impl.JwtService;
@@ -43,6 +45,9 @@ public class UserController {
     private ProfileUserService userService;
 
     @Autowired
+    private ProfileEnterpriseService profileUserService;
+
+    @Autowired
     private RoleService roleService;
 
     @Autowired
@@ -56,17 +61,18 @@ public class UserController {
     }
 
     @PostMapping("/register/enterprise")
-    public ResponseEntity<ProfileUser> createEnterprise(@RequestBody ProfileUser user, BindingResult bindingResult) {
+    public ResponseEntity<ProfileEnterprise> createEnterprise(@RequestBody ProfileEnterprise user, BindingResult bindingResult) {
+
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Iterable<ProfileUser> users = userService.findAll();
-        for (ProfileUser currentUser : users) {
+        Iterable<ProfileEnterprise> users = profileUserService.findAll();
+        for (ProfileEnterprise currentUser : users) {
             if (currentUser.getEmail().equals(user.getEmail())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        if (!userService.isCorrectConfirmPassword(user)) {
+        if (!profileUserService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (user.getRoles() != null) {
@@ -82,7 +88,8 @@ public class UserController {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-        userService.save(user);
+//        user.setStatusEnterpriseId();
+        profileUserService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
@@ -116,7 +123,7 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-    @PostMapping("/login")
+    @PostMapping("/login/user")
     public ResponseEntity<?> login(@RequestBody ProfileUser user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));

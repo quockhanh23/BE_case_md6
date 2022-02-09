@@ -41,7 +41,18 @@ public class UserPrinciple implements UserDetails {
                 authorities
         );
     }
+    public static UserPrinciple build2(ProfileEnterprise user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName())
+        ).collect(Collectors.toList());
 
+        return new UserPrinciple(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
+    }
     public Long getId() {
         return id;
     }

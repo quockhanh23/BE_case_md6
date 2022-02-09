@@ -35,13 +35,12 @@ public class ProfileUser implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    public ProfileUser(String email, String password, String fullName, String phoneNumber, String confirmPassword, boolean enabled, Set<Role> roles) {
+    public ProfileUser(String email, String password, String fullName, String phoneNumber, String confirmPassword,Set<Role> roles) {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.confirmPassword = confirmPassword;
-        this.enabled = enabled;
         this.roles = roles;
     }
 

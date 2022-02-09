@@ -1,5 +1,6 @@
 package com.example.backendmd6.security.jwt;
 
+import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.ProfileUserService;
 import com.example.backendmd6.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +21,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private JwtService jwtService;
 
 	@Autowired
-	private ProfileUserService userService;
-
-	@Override
+	private ProfileUserService profileUserService;
+	@Autowired
+	private ProfileEnterpriseService profileEnterpriseService;
+//	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 									HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
 			String jwt = getJwtFromRequest(request);
 			if (jwt != null && jwtService.validateJwtToken(jwt)) {
-				String username = jwtService.getUserNameFromJwtToken(jwt);
+				String email = jwtService.getUserNameFromJwtToken(jwt);
 
-				UserDetails userDetails = userService.loadUserByUsername(username);
+				UserDetails userDetails = profileUserService.loadUserByUsername(email);
+				UserDetails userDetails2 = profileEnterpriseService.loadUserByUsername(email);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
+				UsernamePasswordAuthenticationToken authentication2 = new UsernamePasswordAuthenticationToken(
+						userDetails2, null, userDetails2.getAuthorities());
+				authentication2.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+				SecurityContextHolder.getContext().setAuthentication(authentication2);
 			}
 		} catch (Exception e) {
 			logger.error("Can NOT set user authentication -> Message: {}", e);
