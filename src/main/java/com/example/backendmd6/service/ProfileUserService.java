@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
-public interface UserService extends UserDetailsService {
+public interface ProfileUserService extends UserDetailsService {
     void save(ProfileUser user);
 
     Iterable<ProfileUser> findAll();

@@ -3,7 +3,7 @@ package com.example.backendmd6.service.impl;
 import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.UserPrinciple;
 import com.example.backendmd6.repository.ProfileUserRepository;
-import com.example.backendmd6.service.UserService;
+import com.example.backendmd6.service.ProfileUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class ProfileUserServiceImpl implements ProfileUserService {
     @Autowired
     private ProfileUserRepository userRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        ProfileUser user = userRepository.findByUsername(username);
+        ProfileUser user = userRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ProfileUser findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByEmail(username);
     }
 
     @Override

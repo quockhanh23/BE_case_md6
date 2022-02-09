@@ -3,8 +3,8 @@ package com.example.backendmd6.security;
 import com.example.backendmd6.security.jwt.CustomAccessDeniedHandler;
 import com.example.backendmd6.security.jwt.JwtAuthenticationFilter;
 import com.example.backendmd6.security.jwt.RestAuthenticationEntryPoint;
-import com.example.backendmd6.service.UserService;
-import com.example.backendmd6.service.impl.UserServiceImpl;
+import com.example.backendmd6.service.ProfileUserService;
+import com.example.backendmd6.service.impl.ProfileUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,12 +27,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public UserService userService() {
-        return new UserServiceImpl();
+    public ProfileUserService userService() {
+        return new ProfileUserServiceImpl();
     }
 
     @Autowired
-    private UserService userService;
+    private ProfileUserService userService;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {

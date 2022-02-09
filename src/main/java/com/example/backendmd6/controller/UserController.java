@@ -4,7 +4,7 @@ import com.example.backendmd6.model.JwtResponse;
 import com.example.backendmd6.model.Role;
 import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.service.RoleService;
-import com.example.backendmd6.service.UserService;
+import com.example.backendmd6.service.ProfileUserService;
 import com.example.backendmd6.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -40,7 +40,7 @@ public class UserController {
     private JwtService jwtService;
 
     @Autowired
-    private UserService userService;
+    private ProfileUserService userService;
 
     @Autowired
     private RoleService roleService;
