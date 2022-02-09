@@ -33,4 +33,10 @@ public class RecruitmentController {
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Recruitment> update(@PathVariable Long id, @RequestBody Recruitment recruitment) {
+        recruitment.setId(id);
+        recruitmentService.save(recruitment);
+        return new ResponseEntity<>(recruitment, HttpStatus.OK);
+    }
 }
