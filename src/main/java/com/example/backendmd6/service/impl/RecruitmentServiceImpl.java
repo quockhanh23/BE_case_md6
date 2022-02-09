@@ -6,8 +6,6 @@ import com.example.backendmd6.service.GeneralService;
 import com.example.backendmd6.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.GeneratedValue;
 import java.util.Optional;
 
 @Service
@@ -35,8 +33,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(id);
     }
 
+//    @Override
+//    public Iterable<Recruitment> findAllByCityContaining(String title) {
+//        return recruitmentRepository.findAllByAddressContaining(title);
+//    }
+
     @Override
-    public Iterable<Recruitment> findAllByCityContaining(String title) {
-        return recruitmentRepository.findAllByAddressContaining(title);
+    public Iterable<Recruitment> search(String key) {
+        return recruitmentRepository.search(key);
     }
 }
