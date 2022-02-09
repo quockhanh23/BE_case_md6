@@ -34,4 +34,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public void remove(Long id) {
         recruitmentRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Recruitment> findAllByJobContaining(String job) {
+        return recruitmentRepository.findAllByTitleContaining(job);
+    }
 }

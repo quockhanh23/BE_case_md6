@@ -8,4 +8,5 @@ import javax.xml.ws.RequestWrapper;
 
 @Repository
 public interface RecruitmentRepository extends JpaRepository<Recruitment,Long>{
+    Iterable<Recruitment> findAllByTitleContaining(String title);
 }

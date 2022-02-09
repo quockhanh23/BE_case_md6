@@ -39,4 +39,15 @@ public class RecruitmentController {
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
+    @GetMapping("name/{q}")
+    public ResponseEntity<Iterable<Recruitment>> search(String q) {
+        Iterable<Recruitment> recruitments;
+        if (q=="") {
+            recruitments = recruitmentService.findAll();
+        } else {
+            recruitments = recruitmentService.findAllByJobContaining(q);
+
+        }
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
 }
