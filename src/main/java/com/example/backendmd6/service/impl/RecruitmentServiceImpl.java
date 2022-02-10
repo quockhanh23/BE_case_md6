@@ -34,13 +34,15 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(id);
     }
 
+    @Override
+    public Iterable<Recruitment> search(String title) {
+
+        return recruitmentRepository.search(title);
+    }
+}
 //    @Override
 //    public Iterable<Recruitment> findAllByCityContaining(String title) {
 //        return recruitmentRepository.findAllByAddressContaining(title);
 //    }
 
-    @Override
-    public Iterable<Recruitment> search(String key) {
-        return recruitmentRepository.search(key);
-    }
-}
+
