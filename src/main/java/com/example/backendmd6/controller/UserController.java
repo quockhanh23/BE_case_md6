@@ -53,13 +53,14 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    //tìm tất cả danh sách người dùng
     @GetMapping("/users")
     public ResponseEntity<Iterable<ProfileUser>> showAllUser() {
         Iterable<ProfileUser> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    //tạo profile doanh nghiệp
     @PostMapping("/register/enterprise")
     public ResponseEntity<ProfileEnterprise> createEnterprise(@RequestBody ProfileEnterprise user, BindingResult bindingResult) {
 
@@ -92,7 +93,7 @@ public class UserController {
         profileEnterpriseService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-
+    //tạo profile người dùng
     @PostMapping("/register/user")
     public ResponseEntity<ProfileUser> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
@@ -123,6 +124,7 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+    //đăng nhập người dùng
     @PostMapping("/login/user")
     public ResponseEntity<?> login(@RequestBody ProfileUser user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -135,7 +137,7 @@ public class UserController {
         ProfileUser currentUser = userService.findByEmail(user.getEmail());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
-
+    //đăng nhập doanh nghiệp
     @PostMapping("/login/enterprise")
     public ResponseEntity<?> login2(@RequestBody ProfileEnterprise user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -148,14 +150,13 @@ public class UserController {
         ProfileEnterprise currentUser = profileEnterpriseService.findByEmail(user.getEmail());
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
-
-
+    //tìm người dùng theo id
     @GetMapping("/users/{id}")
     public ResponseEntity<ProfileUser> getProfile(@PathVariable Long id) {
         Optional<ProfileUser> userOptional = this.userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    // sửa người dùng
     @PutMapping("/users/{id}")
     public ResponseEntity<ProfileUser> updateUserProfile(@PathVariable Long id, @RequestBody ProfileUser user) {
         Optional<ProfileUser> userOptional = this.userService.findById(id);
@@ -172,6 +173,7 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    //xóa người dùng
     @DeleteMapping("/delete")
     public ResponseEntity<ProfileUser> delete(Long idU){
         Optional<ProfileUser> user = this.userService.findById(idU);
