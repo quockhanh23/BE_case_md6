@@ -1,12 +1,10 @@
 package com.example.backendmd6.controller;
 
-import com.example.backendmd6.model.JwtResponse;
-import com.example.backendmd6.model.ProfileEnterprise;
-import com.example.backendmd6.model.Role;
-import com.example.backendmd6.model.ProfileUser;
+import com.example.backendmd6.model.*;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RoleService;
 import com.example.backendmd6.service.ProfileUserService;
+import com.example.backendmd6.service.StatusEnterpriseService;
 import com.example.backendmd6.service.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -48,6 +46,9 @@ public class UserController {
     private ProfileEnterpriseService profileEnterpriseService;
 
     @Autowired
+    private StatusEnterpriseService statusEnterpriseService;
+
+    @Autowired
     private RoleService roleService;
 
     @Autowired
@@ -63,7 +64,9 @@ public class UserController {
     //tạo profile doanh nghiệp
     @PostMapping("/register/enterprise")
     public ResponseEntity<ProfileEnterprise> createEnterprise(@RequestBody ProfileEnterprise user, BindingResult bindingResult) {
-
+        Iterable<StatusEnterprise> statusEnterprise = statusEnterpriseService.findAll();
+        Long id = 1L;
+        Optional<StatusEnterprise> statusEnterprise1 = statusEnterpriseService.findById(id);
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -89,7 +92,7 @@ public class UserController {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-//        user.setStatusEnterpriseId();
+        user.setStatusEnterpriseId(statusEnterprise1.get());
         profileEnterpriseService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
