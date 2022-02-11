@@ -119,4 +119,10 @@ public class ProfileEnterpriseServiceImpl implements ProfileEnterpriseService {
     public void delete(ProfileEnterprise entity) {
         profileEnterpriseRepository.delete(entity);
     }
+
+    @Override
+    public Iterable<ProfileEnterprise> findByNameCompanyContaining(String name) {
+        return profileEnterpriseRepository.findByNameCompanyContaining(name);
+    }
+
 }
