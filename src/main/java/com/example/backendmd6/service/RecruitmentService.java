@@ -7,6 +7,8 @@ public interface RecruitmentService extends GeneralService<Recruitment> {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
     Iterable<Recruitment> search(String key);
 
+    Iterable<Recruitment> findByOrOrderByDateEndAsc();
+
     Iterable<Recruitment> findAllByOrderByDateBegin();
 
 }
