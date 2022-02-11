@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class RecruitmentController {
     }
     @PostMapping
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
+        recruitment.setDateBegin(LocalDateTime.now());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
@@ -52,7 +54,7 @@ public class RecruitmentController {
     }
     @GetMapping("/sort")
     public ResponseEntity<Iterable<Recruitment>> showAllListOrderByDate() {
-        Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateEnd();
+        Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 

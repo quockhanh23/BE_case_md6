@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface RecruitmentRepository extends JpaRepository<Recruitment,Long>{
-//    Iterable<Recruitment>findAllByAddressContaining(String title);
+public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> {
+    //    Iterable<Recruitment>findAllByAddressContaining(String title);
     @Query("SELECT r FROM Recruitment r WHERE CONCAT(r.title, ' ', r.salary, ' ', r.address) LIKE %?1%")
-    Iterable<Recruitment>search(String key);
-    Iterable<Recruitment> findAllByOrderByDateEnd();
+    Iterable<Recruitment> search(String key);
+
+    Iterable<Recruitment> findAllByOrderByDateBegin();
 }

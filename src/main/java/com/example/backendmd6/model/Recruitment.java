@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class Recruitment {
     private String description;
     private String experience;
     private String numberOfRecruitments;
-    private Date dateBegin;
+    private LocalDateTime dateBegin;
     private Date dateEnd;
     private String gender;
     @ManyToOne
