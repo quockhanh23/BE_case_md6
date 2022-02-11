@@ -121,7 +121,8 @@ public class ProfileEnterpriseServiceImpl implements ProfileEnterpriseService {
     }
 
     @Override
-    public Iterable<ProfileEnterprise> findByNameCompany(String name) {
-        return profileEnterpriseRepository.findByNameCompany(name);
+    public Iterable<ProfileEnterprise> findByNameCompanyContaining(String name) {
+        return profileEnterpriseRepository.findByNameCompanyContaining(name);
     }
+
 }

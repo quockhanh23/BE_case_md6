@@ -2,9 +2,8 @@ package com.example.backendmd6.controller;
 
 import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
-import com.example.backendmd6.model.Work;
+import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;
-import com.example.backendmd6.service.impl.ProfileEnterpriseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class RecruitmentController {
     @Autowired
     private RecruitmentService recruitmentService;
     @Autowired
-    private ProfileEnterpriseServiceImpl profileEnterpriseService;
+    private ProfileEnterpriseService profileEnterpriseService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
@@ -47,7 +46,7 @@ public class RecruitmentController {
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
-    @GetMapping("name/{q}")
+    @GetMapping("/name/{q}")
     public ResponseEntity<Iterable<Recruitment>> search(@PathVariable String q) {
         Iterable<Recruitment> recruitments;
         if (Objects.equals(q, "")) {
@@ -67,9 +66,9 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-    @GetMapping("name/{q}")
-    public ResponseEntity<Iterable<ProfileEnterprise>> searchNameCompany(@PathVariable String q) {
-        Iterable<ProfileEnterprise> profileEnterprises=profileEnterpriseService.findByNameCompany(q);
+    @GetMapping("nameCompany/{q}")
+    public ResponseEntity<Iterable<ProfileEnterprise>> searchName(@PathVariable String q) {
+        Iterable<ProfileEnterprise> profileEnterprises=profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
 }
