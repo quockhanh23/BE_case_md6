@@ -28,10 +28,7 @@ public class ProfileEnterpriseController {
     @GetMapping("/{id}")
     public ResponseEntity<ProfileEnterprise> findEnterpriseById(@PathVariable Long id) {
         Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(id);
-        if (!profileEnterprise.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(profileEnterprise.get(), HttpStatus.OK);
+        return profileEnterprise.map(enterprise -> new ResponseEntity<>(enterprise, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 }
