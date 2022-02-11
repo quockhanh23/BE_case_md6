@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ProfileEnterpriseRepository extends JpaRepository<ProfileEnterprise, Long> {
     ProfileEnterprise findByEmail(String email);
     void delete(ProfileEnterprise entity);
+    Iterable<ProfileEnterprise>findByNameCompany(String name);
 }

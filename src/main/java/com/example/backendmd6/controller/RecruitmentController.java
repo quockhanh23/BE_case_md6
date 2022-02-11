@@ -1,7 +1,10 @@
 package com.example.backendmd6.controller;
 
+import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
+import com.example.backendmd6.model.Work;
 import com.example.backendmd6.service.RecruitmentService;
+import com.example.backendmd6.service.impl.ProfileEnterpriseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class RecruitmentController {
     @Autowired
     private RecruitmentService recruitmentService;
+    @Autowired
+    private ProfileEnterpriseServiceImpl profileEnterpriseService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
@@ -62,5 +67,9 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-
+    @GetMapping("name/{q}")
+    public ResponseEntity<Iterable<ProfileEnterprise>> searchNameCompany(@PathVariable String q) {
+        Iterable<ProfileEnterprise> profileEnterprises=profileEnterpriseService.findByNameCompany(q);
+        return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
+    }
 }
