@@ -39,6 +39,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
         return recruitmentRepository.search(title);
     }
+
+    @Override
+    public Iterable<Recruitment> findByOrOrderByDateEndAsc() {
+        return recruitmentRepository.findByOrOrderByDateEndAsc();
+    }
 }
 //    @Override
 //    public Iterable<Recruitment> findAllByCityContaining(String title) {

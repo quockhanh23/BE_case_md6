@@ -50,4 +50,9 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+    @GetMapping("/oder")
+    public ResponseEntity<Iterable<Recruitment>> order() {
+        Iterable<Recruitment> recruitments = recruitmentService.findByOrOrderByDateEndAsc();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
 }

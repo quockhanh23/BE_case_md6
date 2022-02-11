@@ -183,4 +183,5 @@ public class UserController {
         this.userService.delete(user.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
