@@ -14,4 +14,7 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     Iterable<Recruitment> search(String key);
 
     Iterable<Recruitment> findAllByOrderByDateBegin();
+    @Query(value = "select * from recruitment order by id desc ",nativeQuery = true)
+    Iterable<Recruitment> sortNew();
+
 }
