@@ -34,10 +34,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(id);
     }
 
-    @Override
-    public Iterable<Recruitment> findByOrOrderByDateEndAsc() {
-        return recruitmentRepository.findByOrOrderByDateEndAsc();
-    }
 //    @Override
 //    public Iterable<Recruitment> findAllByCityContaining(String title) {
 //        return recruitmentRepository.findAllByAddressContaining(title);

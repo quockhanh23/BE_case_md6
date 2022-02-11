@@ -13,9 +13,5 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     @Query("SELECT r FROM Recruitment r WHERE CONCAT(r.title, ' ', r.salary, ' ', r.address) LIKE %?1%")
     Iterable<Recruitment> search(String key);
 
-    @Query(value = "select * from Recruitment order by id desc limit 10", nativeQuery = true)
-    Iterable<Recruitment> findByOrOrderByDateEndAsc();
-
-
     Iterable<Recruitment> findAllByOrderByDateBegin();
 }
