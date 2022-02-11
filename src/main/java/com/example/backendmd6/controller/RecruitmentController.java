@@ -73,4 +73,9 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises=profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+    @GetMapping("sortNewJob")
+    public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
+        Iterable<Recruitment> recruitments = recruitmentService.sortNew();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
 }

@@ -45,6 +45,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
+    public Iterable<Recruitment> sortNew() {
+        return recruitmentRepository.sortNew();
+    }
+
+    @Override
     public Iterable<Recruitment> findAllByOrderByDateBegin() {
         return recruitmentRepository.findAllByOrderByDateBegin();
     }
