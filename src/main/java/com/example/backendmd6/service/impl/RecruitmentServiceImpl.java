@@ -36,10 +36,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
     @Override
     public Iterable<Recruitment> search(String title) {
-
         return recruitmentRepository.search(title);
     }
-
     @Override
     public Iterable<Recruitment> findByOrOrderByDateEndAsc() {
         return recruitmentRepository.findByOrOrderByDateEndAsc();

@@ -50,9 +50,14 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-    @GetMapping("/oder")
+    @GetMapping("/order")
     public ResponseEntity<Iterable<Recruitment>> order() {
         Iterable<Recruitment> recruitments = recruitmentService.findByOrOrderByDateEndAsc();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Recruitment> delete(@PathVariable Long id) {
+        recruitmentService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
