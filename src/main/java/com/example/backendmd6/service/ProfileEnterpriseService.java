@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface ProfileEnterpriseService extends UserDetailsService {
     void save(ProfileEnterprise user);
+
     Iterable<ProfileEnterprise> findAll();
 
     ProfileEnterprise findByEmail(String email);
@@ -25,6 +26,10 @@ public interface ProfileEnterpriseService extends UserDetailsService {
     boolean isRegister(ProfileEnterprise user);
 
     boolean isCorrectConfirmPassword(ProfileEnterprise user);
+
     void delete(ProfileEnterprise entity);
+
+    Iterable<ProfileEnterprise> findAllByNameCompany(String nameCompany);
+
 
 }

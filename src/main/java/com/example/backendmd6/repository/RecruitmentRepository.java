@@ -15,4 +15,5 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
 
     @Query(value = "select * from Recruitment order by id desc limit 10", nativeQuery = true)
     Iterable<Recruitment> findByOrOrderByDateEndAsc();
+
 }

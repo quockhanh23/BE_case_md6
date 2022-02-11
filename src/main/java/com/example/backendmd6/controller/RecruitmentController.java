@@ -1,7 +1,11 @@
 package com.example.backendmd6.controller;
 
+import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
+import com.example.backendmd6.service.ProfileUserService;
 import com.example.backendmd6.service.RecruitmentService;
+import com.example.backendmd6.service.impl.ProfileEnterpriseServiceImpl;
+import com.example.backendmd6.service.impl.ProfileUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,29 +21,37 @@ import java.util.Optional;
 public class RecruitmentController {
     @Autowired
     private RecruitmentService recruitmentService;
+    @Autowired
+    private ProfileEnterpriseServiceImpl profileEnterpriseService;
 
+    //Show danh sách tin tuyển dụng
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
+    //Show detail 1 bài tuyển dụng
     @GetMapping("/{id}")
     public ResponseEntity<Recruitment> detail(@PathVariable Long id) {
         Optional<Recruitment> recruitment = recruitmentService.findById(id);
         return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
     }
+
+    // thêm bài tuyển dụng
     @PostMapping
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Recruitment> update(@PathVariable Long id, @RequestBody Recruitment recruitment) {
         recruitment.setId(id);
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
+
     @GetMapping("name/{q}")
     public ResponseEntity<Iterable<Recruitment>> search(@PathVariable String q) {
         Iterable<Recruitment> recruitments;
@@ -50,14 +62,22 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-    @GetMapping("/order")
+
+    @GetMapping("/new")
     public ResponseEntity<Iterable<Recruitment>> order() {
         Iterable<Recruitment> recruitments = recruitmentService.findByOrOrderByDateEndAsc();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Recruitment> delete(@PathVariable Long id) {
         recruitmentService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("namecompany/{q}")
+    public ResponseEntity<Iterable<ProfileEnterprise>> searchCompanyName(@PathVariable String q) {
+        Iterable<ProfileEnterprise> profileEnterprises =profileEnterpriseService.findAllByNameCompany (q);
+        return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
 }
