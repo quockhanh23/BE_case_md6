@@ -43,4 +43,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> search(String key) {
         return recruitmentRepository.search(key);
     }
+
+    @Override
+    public Iterable<Recruitment> findAllByOrderByDateEnd() {
+        return recruitmentRepository.findAllByOrderByDateEnd();
+    }
 }

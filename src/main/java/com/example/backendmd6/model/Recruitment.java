@@ -18,6 +18,7 @@ public class Recruitment {
     private String description;
     private String experience;
     private String numberOfRecruitments;
+    private Date dateBegin;
     private Date dateEnd;
     private String gender;
     @ManyToOne

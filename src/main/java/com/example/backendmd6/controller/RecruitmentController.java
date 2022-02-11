@@ -50,4 +50,10 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+    @GetMapping("/sort")
+    public ResponseEntity<Iterable<Recruitment>> showAllListOrderByDate() {
+        Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateEnd();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+
 }
