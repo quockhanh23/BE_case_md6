@@ -30,7 +30,8 @@ public class RecruitmentController {
         Optional<Recruitment> recruitment = recruitmentService.findById(id);
         return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
     }
-    @PostMapping
+    // tạo job mới
+    @PostMapping("/create")
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
         recruitment.setDateBegin(LocalDateTime.now());
         recruitmentService.save(recruitment);
@@ -57,6 +58,7 @@ public class RecruitmentController {
         recruitmentService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    //sắp xếp theo thời gian đăng bài
     @GetMapping("/sort")
     public ResponseEntity<Iterable<Recruitment>> showAllListOrderByDate() {
         Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
