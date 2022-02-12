@@ -65,7 +65,7 @@ public class RecruitmentController {
     //sắp xếp theo thời gian đăng bài
     @GetMapping("/sort")
     public ResponseEntity<Iterable<Recruitment>> showAllListOrderByDate() {
-        Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
+        Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBeginDesc();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
     @GetMapping("nameCompany/{q}")

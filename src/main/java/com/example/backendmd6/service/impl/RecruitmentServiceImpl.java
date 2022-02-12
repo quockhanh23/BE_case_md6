@@ -50,8 +50,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
-    public Iterable<Recruitment> findAllByOrderByDateBegin() {
-        return recruitmentRepository.findAllByOrderByDateBegin();
+    public Iterable<Recruitment> findAllByOrderByDateBeginDesc() {
+        return recruitmentRepository.findAllByOrderByDateBeginDesc();
     }
 
 

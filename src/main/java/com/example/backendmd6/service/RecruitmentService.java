@@ -10,6 +10,6 @@ public interface RecruitmentService extends GeneralService<Recruitment> {
     Iterable<Recruitment> sortNew();
 
 
-    Iterable<Recruitment> findAllByOrderByDateBegin();
+    Iterable<Recruitment> findAllByOrderByDateBeginDesc();
 
 }
