@@ -125,4 +125,9 @@ public class ProfileEnterpriseServiceImpl implements ProfileEnterpriseService {
         return profileEnterpriseRepository.findByNameCompanyContaining(name);
     }
 
+    @Override
+    public Iterable<ProfileEnterprise> findAllByStatusLikeOne() {
+        return profileEnterpriseRepository.findAllByStatusLikeOne();
+    }
+
 }

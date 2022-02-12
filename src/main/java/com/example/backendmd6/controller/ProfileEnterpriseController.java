@@ -26,9 +26,16 @@ public class ProfileEnterpriseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfileEnterprise> findEnterpriseById(@PathVariable Long id){
+    public ResponseEntity<ProfileEnterprise> findEnterpriseById(@PathVariable Long id) {
         Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(id);
-        return profileEnterprise.map(enterprise -> new ResponseEntity<>(enterprise, HttpStatus.OK)).orElseGet(() ->
+        return profileEnterprise.map(enterprise ->
+                new ResponseEntity<>(enterprise, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+        @GetMapping("/findStatus")
+    public ResponseEntity<Iterable<ProfileEnterprise>> findStatusOne() {
+        Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findAllByStatusLikeOne();
+        return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
 }

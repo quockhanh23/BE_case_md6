@@ -34,6 +34,7 @@ public class RecruitmentController {
         Optional<Recruitment> recruitment = recruitmentService.findById(id);
         return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
     }
+
     // tạo job mới
     @PostMapping("/create")
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
@@ -41,36 +42,41 @@ public class RecruitmentController {
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Recruitment> update(@PathVariable Long id, @RequestBody Recruitment recruitment) {
         recruitment.setId(id);
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
-    @GetMapping("/name/{q}")
-    public ResponseEntity<Iterable<Recruitment>> search(@PathVariable String q) {
+
+    @GetMapping("/name")
+    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q) {
         Iterable<Recruitment> recruitments;
-        if (Objects.equals(q, "")) {
+        if (q == "") {
             recruitments = recruitmentService.findAll();
         } else {
             recruitments = recruitmentService.search(q);
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Recruitment> delete(@PathVariable Long id) {
         recruitmentService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     //sắp xếp theo thời gian đăng bài
     @GetMapping("/sort")
     public ResponseEntity<Iterable<Recruitment>> showAllListOrderByDate() {
         Iterable<Recruitment> recruitments = recruitmentService.findAllByOrderByDateBegin();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @GetMapping("nameCompany/{q}")
     public ResponseEntity<Iterable<ProfileEnterprise>> searchName(@PathVariable String q) {
-        Iterable<ProfileEnterprise> profileEnterprises=profileEnterpriseService.findByNameCompanyContaining(q);
+        Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
 }
