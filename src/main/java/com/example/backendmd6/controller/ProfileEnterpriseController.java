@@ -41,4 +41,10 @@ public class ProfileEnterpriseController {
         Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByProfileEnterprise(id);
         return new ResponseEntity <>(recruitments, HttpStatus.OK);
     }
+
+        @GetMapping("/findStatus")
+    public ResponseEntity<Iterable<ProfileEnterprise>> findStatusOne() {
+        Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findAllByStatusLikeOne();
+        return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
+    }
 }
