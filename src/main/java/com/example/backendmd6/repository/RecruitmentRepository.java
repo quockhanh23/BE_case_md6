@@ -4,6 +4,7 @@ import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -15,7 +16,10 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
 
     Iterable<Recruitment> findAllByOrderByDateBeginDesc();
 
-    @Query(value = "select * from recruitment order by id desc ",nativeQuery = true)
+    @Query(value = "select * from recruitment order by id desc ", nativeQuery = true)
     Iterable<Recruitment> sortNew();
+
+    @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);
 
 }

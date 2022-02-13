@@ -2,7 +2,9 @@ package com.example.backendmd6.controller;
 
 
 import com.example.backendmd6.model.ProfileEnterprise;
+import com.example.backendmd6.model.Recruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
+import com.example.backendmd6.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class ProfileEnterpriseController {
     @Autowired
     private ProfileEnterpriseService profileEnterpriseService;
+    @Autowired
+    private RecruitmentService recruitmentService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<ProfileEnterprise>> findAllEnterprise() {
@@ -28,9 +32,14 @@ public class ProfileEnterpriseController {
     @GetMapping("/{id}")
     public ResponseEntity<ProfileEnterprise> findEnterpriseById(@PathVariable Long id) {
         Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(id);
-        return profileEnterprise.map(enterprise ->
-                new ResponseEntity<>(enterprise, HttpStatus.OK)).orElseGet(() ->
+        return profileEnterprise.map(enterprise -> new ResponseEntity<>(enterprise, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/myListRecruitment")
+    public ResponseEntity<Iterable<Recruitment>> findMyListRecruitment(@PathVariable Long id) {
+        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByProfileEnterprise(id);
+        return new ResponseEntity <>(recruitments, HttpStatus.OK);
     }
 
         @GetMapping("/findStatus")

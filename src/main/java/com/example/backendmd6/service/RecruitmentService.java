@@ -2,6 +2,7 @@ package com.example.backendmd6.service;
 
 import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.Recruitment;
+import org.springframework.data.repository.query.Param;
 
 public interface RecruitmentService extends GeneralService<Recruitment> {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
@@ -9,7 +10,7 @@ public interface RecruitmentService extends GeneralService<Recruitment> {
 
     Iterable<Recruitment> sortNew();
 
-
     Iterable<Recruitment> findAllByOrderByDateBeginDesc();
 
+    Iterable<Recruitment> findRecruitmentByProfileEnterprise(Long id);
 }
