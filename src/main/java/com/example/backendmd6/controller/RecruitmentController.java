@@ -2,8 +2,10 @@ package com.example.backendmd6.controller;
 
 import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
+import com.example.backendmd6.model.StatusRecruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;
+import com.example.backendmd6.service.StatusRecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,8 @@ public class RecruitmentController {
     private RecruitmentService recruitmentService;
     @Autowired
     private ProfileEnterpriseService profileEnterpriseService;
-
+    @Autowired
+    private StatusRecruitmentService statusRecruitmentService;
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
@@ -36,8 +39,13 @@ public class RecruitmentController {
     }
     // tạo job mới
     @PostMapping("/create")
-    public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment) {
+    public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment, @RequestParam Long idEnterprise) {
         recruitment.setDateBegin(LocalDateTime.now());
+        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(idEnterprise);
+        Long idStatusRec = 1L;
+        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(idStatusRec);
+        recruitment.setStatusRecruitmentId(statusRecruitment.get());
+        recruitment.setProfileEnterprise(profileEnterprise.get());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
