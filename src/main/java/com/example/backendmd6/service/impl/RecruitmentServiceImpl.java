@@ -54,5 +54,10 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return recruitmentRepository.findAllByOrderByDateBeginDesc();
     }
 
+    @Override
+    public Iterable<Recruitment> findRecruitmentByProfileEnterprise(Long id) {
+        return recruitmentRepository.findRecruitmentByProfileEnterprise(id);
+    }
+
 
 }
