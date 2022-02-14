@@ -54,6 +54,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     //tìm tất cả danh sách người dùng
     @GetMapping("/users")
     public ResponseEntity<Iterable<ProfileUser>> showAllUser() {
@@ -63,8 +64,12 @@ public class UserController {
 
     //tạo profile doanh nghiệp
     @PostMapping("/register/enterprise")
-    public ResponseEntity<ProfileEnterprise> createEnterprise(@RequestBody ProfileEnterprise user, BindingResult bindingResult) {
-        Iterable<StatusEnterprise> statusEnterprise = statusEnterpriseService.findAll();
+    public ResponseEntity<Boolean> createEnterprise(@RequestBody ProfileEnterprise user, BindingResult bindingResult) {
+        ProfileEnterprise us = new ProfileEnterprise();
+        ProfileEnterprise us2 = user;
+        us.setPassword(us2.getPassword());
+        us.setEmail(us2.getEmail());
+        us.setNameCompany(us2.getNameCompany());
         Long id = 1L;
         Optional<StatusEnterprise> statusEnterprise1 = statusEnterpriseService.findById(id);
         if (bindingResult.hasFieldErrors()) {
@@ -72,33 +77,39 @@ public class UserController {
         }
         Iterable<ProfileEnterprise> users = profileEnterpriseService.findAll();
         for (ProfileEnterprise currentUser : users) {
-            if (currentUser.getEmail().equals(user.getEmail())) {
+            if (currentUser.getEmail().equals(us2.getEmail())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        if (!profileEnterpriseService.isCorrectConfirmPassword(user)) {
+        if (!profileEnterpriseService.isCorrectConfirmPassword(us2)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (user.getRoles() != null) {
+        if (us2.getRoles() != null) {
             Role role = roleService.findByName("ROLE_ADMIN");
             Set<Role> roles = new HashSet<>();
             roles.add(role);
-            user.setRoles(roles);
+            us2.setRoles(roles);
         } else {
             Role role1 = roleService.findByName("ROLE_ENTERPRISE");
             Set<Role> roles1 = new HashSet<>();
             roles1.add(role1);
-            user.setRoles(roles1);
+            us2.setRoles(roles1);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
-        user.setStatusEnterpriseId(statusEnterprise1.get());
-        profileEnterpriseService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+
+        us2.setPassword(passwordEncoder.encode(us2.getPassword()));
+        us2.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        us2.setStatusEnterpriseId(statusEnterprise1.get());
+        profileEnterpriseService.save(us2);
+
+        return new ResponseEntity<>(profileEnterpriseService.create(us), HttpStatus.CREATED);
     }
     //tạo profile người dùng
     @PostMapping("/register/user")
-    public ResponseEntity<ProfileUser> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
+    public ResponseEntity<Boolean> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
+        ProfileUser us = new ProfileUser();
+        us.setPassword(user.getPassword());
+        us.setFullName(user.getFullName());
+        us.setEmail(user.getEmail());
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -125,7 +136,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.create(us), HttpStatus.CREATED);
     }
     //đăng nhập người dùng
     @PostMapping("/login/user")
