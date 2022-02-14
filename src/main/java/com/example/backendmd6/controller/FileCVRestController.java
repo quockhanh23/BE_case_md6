@@ -30,21 +30,10 @@ public class FileCVRestController {
         return new ResponseEntity<>(fileCVS, HttpStatus.OK);
     }
 
-    //tìm tất cả danh sách người dùng
-    @GetMapping("/users")
-    public ResponseEntity<Iterable<ProfileUser>> showAllUser() {
-        Iterable<ProfileUser> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    //tìm 1 CV
     @GetMapping("/{id}")
-    public ResponseEntity<FileCV> findById(@PathVariable Long id) {
-        Optional<FileCV> fileCVS = fileCVService.findById(id);
-        if (!fileCVS.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(fileCVS.get(), HttpStatus.OK);
+    public ResponseEntity<FileCV> findOne(@PathVariable Long id) {
+        Optional<FileCV> fileCVOptional = fileCVService.findById(id);
+        return new ResponseEntity<>(fileCVOptional.get(), HttpStatus.OK);
     }
 
     // Tạo cv mới theo người đăng
@@ -57,15 +46,15 @@ public class FileCVRestController {
     }
 
     // Sửa cv
-    @PostMapping("/createCV")
-    public ResponseEntity<FileCV> createCV(@RequestBody FileCV fileCV,
-                                           @RequestParam Long idUser, @RequestParam Long idCV) {
+    @PutMapping("/editCV/{idCV}")
+    public ResponseEntity<FileCV> editCV(@RequestBody FileCV fileCV,
+                                            @PathVariable Long idCV) {
         Optional<FileCV> fileCVOptional = fileCVService.findById(idCV);
         fileCV.setId(fileCVOptional.get().getId());
         if (!fileCVOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Optional<ProfileUser> profileUser = userService.findById(idUser);
+        Optional<ProfileUser> profileUser = userService.findById(fileCVOptional.get().getProfileUserId().getId().longValue());
         fileCV.setProfileUserId(profileUser.get());
         fileCVService.save(fileCV);
         return new ResponseEntity<>(fileCV, HttpStatus.CREATED);

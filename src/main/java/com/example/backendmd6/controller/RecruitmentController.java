@@ -53,16 +53,16 @@ public class RecruitmentController {
     }
 
     // sửa job
-    @PostMapping("/edit")
+    @PutMapping("/edit/{idRecruitment}")
     public ResponseEntity<Recruitment> edit(@RequestBody Recruitment recruitment,
-                                            @RequestParam Long idEnterprise, @RequestParam Long idRecruitment) {
+                                            @PathVariable Long idRecruitment) {
         Optional<Recruitment> recruitmentOptional = recruitmentService.findById(idRecruitment);
-        recruitment.setDateBegin(LocalDateTime.now());
-        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(idEnterprise);
+        recruitment.setId(recruitmentOptional.get().getId());
+        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById
+                (recruitmentOptional.get().getProfileEnterprise().getId().longValue());
+        recruitment.setProfileEnterprise(profileEnterprise.get());
         Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(1L);
         recruitment.setStatusRecruitmentId(statusRecruitment.get());
-        recruitment.setProfileEnterprise(profileEnterprise.get());
-        recruitment.setId(recruitmentOptional.get().getId());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
@@ -109,4 +109,5 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
 }

@@ -48,19 +48,19 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     Iterable<Recruitment> findRecruitmentByAddress6();
 
     @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    @Query(value = "select * from recruitment where address like 'Nam Định'", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress7();
 
     @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    @Query(value = "select * from recruitment where address like 'Ninh Bình'", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress8();
 
     @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    @Query(value = "select * from recruitment where address like 'Thái Bình'", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress9();
 
     @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    @Query(value = "select * from recruitment where address like 'Vĩnh Phúc'", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress10();
 
 }
