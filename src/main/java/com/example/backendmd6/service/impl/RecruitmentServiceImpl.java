@@ -4,6 +4,8 @@ import com.example.backendmd6.model.Recruitment;
 import com.example.backendmd6.repository.RecruitmentRepository;
 import com.example.backendmd6.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,11 +15,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
     @Autowired
     private RecruitmentRepository recruitmentRepository;
-
-    @Override
-    public Iterable<Recruitment> findAll() {
-        return recruitmentRepository.findAll();
-    }
 
     @Override
     public Optional<Recruitment> findById(Long id) {
@@ -59,5 +56,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return recruitmentRepository.findRecruitmentByProfileEnterprise(id);
     }
 
+    @Override
+    public Iterable<Recruitment> sortOdd() {
+        return recruitmentRepository.sortOdd();
+    }
 
+    @Override
+    public Page<Recruitment> findAll(Pageable pageable) {
+        return recruitmentRepository.findAll(pageable);
+    }
 }

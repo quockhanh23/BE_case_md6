@@ -2,6 +2,8 @@ package com.example.backendmd6.repository;
 
 import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,12 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
 
     @Query(value = "select * from recruitment order by id desc ", nativeQuery = true)
     Iterable<Recruitment> sortNew();
+
+    @Query(value = "select * from recruitment order by id asc  ", nativeQuery = true)
+    Iterable<Recruitment> sortOdd();
+
+    @Query(value = "select * from recruitment where status_recruitment_id = 2 and 3",nativeQuery = true)
+    Page<Recruitment> findAll(Pageable pageable);
 
     @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);
