@@ -26,6 +26,7 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
+
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
@@ -87,13 +88,23 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }    @GetMapping("sortOddJob")
+    }
+
+    @GetMapping("sortOddJob")
     public ResponseEntity<Iterable<Recruitment>> sortOddJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortOdd();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+
+    //Hiện thị danh sách bài viêt VIP sắp xếp theo thời gian
+    @GetMapping("/topVIP")
+    public ResponseEntity<Iterable<Recruitment>> showListVIPOrderByDate() {
+        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByStatusRecruitmentId();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 }

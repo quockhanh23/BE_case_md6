@@ -15,4 +15,6 @@ public interface RecruitmentService extends GeneralService<Recruitment> {
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(Long id);
 
     Iterable<Recruitment> sortOdd();
+
+    Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 }
