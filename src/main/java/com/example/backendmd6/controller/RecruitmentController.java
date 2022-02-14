@@ -30,7 +30,6 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
-
     @GetMapping("")
     public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 3) Pageable pageable) {
         Page<Recruitment> recruitments = recruitmentService.findAll(pageable);
@@ -52,6 +51,21 @@ public class RecruitmentController {
         Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(idStatusRec);
         recruitment.setStatusRecruitmentId(statusRecruitment.get());
         recruitment.setProfileEnterprise(profileEnterprise.get());
+        recruitmentService.save(recruitment);
+        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
+    }
+
+    // sửa job
+    @PutMapping("/edit/{idRecruitment}")
+    public ResponseEntity<Recruitment> edit(@RequestBody Recruitment recruitment,
+                                            @PathVariable Long idRecruitment) {
+        Optional<Recruitment> recruitmentOptional = recruitmentService.findById(idRecruitment);
+        recruitment.setId(recruitmentOptional.get().getId());
+        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById
+                (recruitmentOptional.get().getProfileEnterprise().getId().longValue());
+        recruitment.setProfileEnterprise(profileEnterprise.get());
+        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(1L);
+        recruitment.setStatusRecruitmentId(statusRecruitment.get());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
@@ -92,7 +106,6 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
-
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
@@ -111,4 +124,5 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByStatusRecruitmentId();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
 }

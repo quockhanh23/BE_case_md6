@@ -57,10 +57,58 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
+    public Iterable<Recruitment> findRecruitmentByAddress1() {
+        return recruitmentRepository.findRecruitmentByAddress1();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress2() {
+        return recruitmentRepository.findRecruitmentByAddress2();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress3() {
+        return recruitmentRepository.findRecruitmentByAddress3();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress4() {
+        return recruitmentRepository.findRecruitmentByAddress4();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress5() {
+        return recruitmentRepository.findRecruitmentByAddress5();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress6() {
+        return recruitmentRepository.findRecruitmentByAddress6();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress7() {
+        return recruitmentRepository.findRecruitmentByAddress7();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress8() {
+        return recruitmentRepository.findRecruitmentByAddress8();
+    }
+    @Override
     public Iterable<Recruitment> sortOdd() {
         return recruitmentRepository.sortOdd();
     }
 
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress9() {
+        return recruitmentRepository.findRecruitmentByAddress9();
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress10() {
+        return recruitmentRepository.findRecruitmentByAddress10();
+    }
     @Override
     public Page<Recruitment> findAll(Pageable pageable) {
         return recruitmentRepository.findAll(pageable);
