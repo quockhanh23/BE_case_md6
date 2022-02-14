@@ -3,6 +3,7 @@ package com.example.backendmd6.repository;
 import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,45 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
 
     @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress1();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Bắc Ninh'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress2();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nam'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress3();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hải Dương'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress4();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hải Phòng'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress5();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hưng Yên'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress6();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress7();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress8();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress9();
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress10();
 
 }
