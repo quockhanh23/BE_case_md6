@@ -104,4 +104,11 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.sortOdd();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
+    //Hiện thị danh sách bài viêt VIP sắp xếp theo thời gian
+    @GetMapping("/topVIP")
+    public ResponseEntity<Iterable<Recruitment>> showListVIPOrderByDate() {
+        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByStatusRecruitmentId();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
 }

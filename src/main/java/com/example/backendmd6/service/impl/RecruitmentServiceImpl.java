@@ -65,4 +65,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Page<Recruitment> findAll(Pageable pageable) {
         return recruitmentRepository.findAll(pageable);
     }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByStatusRecruitmentId() {
+        return recruitmentRepository.findRecruitmentByStatusRecruitmentId();
+    }
 }

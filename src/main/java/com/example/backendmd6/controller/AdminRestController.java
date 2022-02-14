@@ -151,4 +151,17 @@ public class AdminRestController {
         recruitmentService.save(optionalRecruitment.get());
         return new ResponseEntity<>(optionalRecruitment.get(), HttpStatus.OK);
     }
+
+    // đổi trạng thái tin đăng tuyển proposal VIP
+    @DeleteMapping("/changeProposalVIPRecruitment/{id}")
+    public ResponseEntity<Recruitment> changeProposalVIPRecruitment(@PathVariable Long id) {
+        Optional<Recruitment> optionalRecruitment = recruitmentService.findById(id);
+        if (!optionalRecruitment.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(3L);
+        optionalRecruitment.get().setStatusRecruitmentId(statusRecruitment.get());
+        recruitmentService.save(optionalRecruitment.get());
+        return new ResponseEntity<>(optionalRecruitment.get(), HttpStatus.OK);
+    }
 }

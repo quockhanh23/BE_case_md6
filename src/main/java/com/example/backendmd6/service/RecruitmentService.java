@@ -20,6 +20,8 @@ public interface RecruitmentService {
 
     Iterable<Recruitment> sortOdd();
 
+    Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
+
     Page<Recruitment> findAll(Pageable pageable);
 
     Optional<Recruitment> findById(Long id);
