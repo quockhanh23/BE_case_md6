@@ -105,7 +105,11 @@ public class UserController {
     }
     //tạo profile người dùng
     @PostMapping("/register/user")
-    public ResponseEntity<ProfileUser> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
+    public ResponseEntity<Boolean> createUser(@RequestBody ProfileUser user, BindingResult bindingResult) {
+        ProfileUser us = new ProfileUser();
+        us.setPassword(user.getPassword());
+        us.setFullName(user.getFullName());
+        us.setEmail(user.getEmail());
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -132,7 +136,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.create(us), HttpStatus.CREATED);
     }
     //đăng nhập người dùng
     @PostMapping("/login/user")
