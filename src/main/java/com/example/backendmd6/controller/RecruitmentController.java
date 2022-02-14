@@ -26,6 +26,7 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
+
     @GetMapping("")
     public ResponseEntity<Iterable<Recruitment>> showAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
@@ -47,6 +48,21 @@ public class RecruitmentController {
         Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(idStatusRec);
         recruitment.setStatusRecruitmentId(statusRecruitment.get());
         recruitment.setProfileEnterprise(profileEnterprise.get());
+        recruitmentService.save(recruitment);
+        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
+    }
+
+    // sửa job
+    @PostMapping("/edit")
+    public ResponseEntity<Recruitment> edit(@RequestBody Recruitment recruitment,
+                                            @RequestParam Long idEnterprise, @RequestParam Long idRecruitment) {
+        Optional<Recruitment> recruitmentOptional = recruitmentService.findById(idRecruitment);
+        recruitment.setDateBegin(LocalDateTime.now());
+        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(idEnterprise);
+        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(1L);
+        recruitment.setStatusRecruitmentId(statusRecruitment.get());
+        recruitment.setProfileEnterprise(profileEnterprise.get());
+        recruitment.setId(recruitmentOptional.get().getId());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
@@ -87,6 +103,7 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
