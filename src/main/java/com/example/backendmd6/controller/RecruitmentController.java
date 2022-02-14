@@ -32,8 +32,13 @@ public class RecruitmentController {
     private StatusRecruitmentService statusRecruitmentService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 3) Pageable pageable ) {
-        Page<Recruitment> recruitments = recruitmentService.findAll(pageable);
+    public ResponseEntity<Iterable<Recruitment>> showAll() {
+        Iterable<Recruitment> recruitments = recruitmentService.findAll();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+    @GetMapping("recruitmentPagination")
+    public ResponseEntity<Page<Recruitment>> recruitmentPagination (@PageableDefault(value = 3) Pageable pageable) {
+        Page<Recruitment> recruitments = recruitmentService.recruitmentPagination(pageable);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
@@ -64,14 +69,16 @@ public class RecruitmentController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q,@PageableDefault(value = 7) Pageable pageable) {
+    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q, @PageableDefault(value = 7) Pageable pageable) {
         Iterable<Recruitment> recruitments;
+        Iterable<ProfileEnterprise> profileEnterprises;
         if (Objects.equals(q, "")) {
             recruitments = recruitmentService.findAll(pageable);
         } else {
             recruitments = recruitmentService.search(q);
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{id}")
@@ -92,11 +99,13 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @GetMapping("sortOddJob")
     public ResponseEntity<Iterable<Recruitment>> sortOddJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortOdd();

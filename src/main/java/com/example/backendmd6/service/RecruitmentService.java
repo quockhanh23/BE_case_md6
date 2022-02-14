@@ -28,4 +28,7 @@ public interface RecruitmentService {
 
     void remove(Long id);
 
+    Iterable<Recruitment>findAll();
+
+    Page<Recruitment>recruitmentPagination(Pageable pageable);
 }

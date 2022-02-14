@@ -31,6 +31,16 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(id);
     }
 
+    @Override
+    public Iterable<Recruitment> findAll() {
+        return recruitmentRepository.findAll();
+    }
+
+    @Override
+    public Page<Recruitment> recruitmentPagination(Pageable pageable) {
+        return recruitmentRepository.recruitmentPagination(pageable);
+    }
+
 //    @Override
 //    public Iterable<Recruitment> findAllByCityContaining(String title) {
 //        return recruitmentRepository.findAllByAddressContaining(title);
@@ -63,6 +73,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
     @Override
     public Page<Recruitment> findAll(Pageable pageable) {
-        return recruitmentRepository.findAll(pageable);
+        return recruitmentRepository.recruitmentPagination(pageable);
     }
+
 }
