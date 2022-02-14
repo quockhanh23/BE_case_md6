@@ -10,6 +10,8 @@ import com.example.backendmd6.service.StatusEnterpriseService;
 import com.example.backendmd6.service.StatusRecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +34,8 @@ public class AdminRestController {
 
     // Show tất cả tin tuyển dụng
     @GetMapping("/findRecruitment")
-    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment() {
-        Iterable<Recruitment> statusRecruitments = recruitmentService.findAll();
+    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment(@PageableDefault(value = 3) Pageable pageable) {
+        Iterable<Recruitment> statusRecruitments = recruitmentService.findAll(pageable);
         return new ResponseEntity<>(statusRecruitments, HttpStatus.OK);
     }
 

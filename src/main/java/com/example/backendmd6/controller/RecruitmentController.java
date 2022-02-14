@@ -6,7 +6,11 @@ import com.example.backendmd6.model.StatusRecruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;
 import com.example.backendmd6.service.StatusRecruitmentService;
+import javafx.beans.DefaultProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +30,10 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
+
     @GetMapping("")
-    public ResponseEntity<Iterable<Recruitment>> showAll() {
-        Iterable<Recruitment> recruitments = recruitmentService.findAll();
+    public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 3) Pageable pageable ) {
+        Page<Recruitment> recruitments = recruitmentService.findAll(pageable);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
@@ -59,10 +64,10 @@ public class RecruitmentController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q) {
+    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q,@PageableDefault(value = 7) Pageable pageable) {
         Iterable<Recruitment> recruitments;
-        if (q == "") {
-            recruitments = recruitmentService.findAll();
+        if (Objects.equals(q, "")) {
+            recruitments = recruitmentService.findAll(pageable);
         } else {
             recruitments = recruitmentService.search(q);
         }
@@ -91,7 +96,8 @@ public class RecruitmentController {
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }    @GetMapping("sortOddJob")
+    }
+    @GetMapping("sortOddJob")
     public ResponseEntity<Iterable<Recruitment>> sortOddJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortOdd();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
