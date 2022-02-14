@@ -91,5 +91,9 @@ public class RecruitmentController {
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }    @GetMapping("sortOddJob")
+    public ResponseEntity<Iterable<Recruitment>> sortOddJob() {
+        Iterable<Recruitment> recruitments = recruitmentService.sortOdd();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 }
