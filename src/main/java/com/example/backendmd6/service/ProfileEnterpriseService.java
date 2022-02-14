@@ -32,4 +32,5 @@ public interface ProfileEnterpriseService extends UserDetailsService {
     Iterable<ProfileEnterprise>findByNameCompanyContaining(String name);
 
     Iterable<ProfileEnterprise> findAllByStatusLikeOne();
+    Boolean create(ProfileEnterprise profileEnterprise);
 }
