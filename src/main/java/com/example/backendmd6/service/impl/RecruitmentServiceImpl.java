@@ -59,5 +59,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return recruitmentRepository.findRecruitmentByProfileEnterprise(id);
     }
 
-
+    @Override
+    public Iterable<Recruitment> sortOdd() {
+        return recruitmentRepository.sortOdd();
+    }
 }

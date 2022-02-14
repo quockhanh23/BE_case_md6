@@ -19,6 +19,9 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     @Query(value = "select * from recruitment order by id desc ", nativeQuery = true)
     Iterable<Recruitment> sortNew();
 
+    @Query(value = "select * from recruitment order by id asc  ", nativeQuery = true)
+    Iterable<Recruitment> sortOdd();
+
     @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);
 
