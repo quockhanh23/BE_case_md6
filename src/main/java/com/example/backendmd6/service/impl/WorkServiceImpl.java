@@ -11,10 +11,16 @@ import java.util.Optional;
 @Service
 public class WorkServiceImpl implements WorkService {
     @Autowired
-    WorkRepository workRepository;
+     private WorkRepository workRepository;
 
     @Override
     public Iterable<Work> findAllByName(String name) {
         return workRepository.findByName(name);
     }
+
+    @Override
+    public Iterable<Work> findAll() {
+        return workRepository.findAll();
+    }
+
 }
