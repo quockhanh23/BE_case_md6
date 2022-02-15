@@ -48,7 +48,7 @@ public class FileCVRestController {
     // Sửa cv
     @PutMapping("/editCV/{idCV}")
     public ResponseEntity<FileCV> editCV(@RequestBody FileCV fileCV,
-                                            @PathVariable Long idCV) {
+                                         @PathVariable Long idCV) {
         Optional<FileCV> fileCVOptional = fileCVService.findById(idCV);
         fileCV.setId(fileCVOptional.get().getId());
         if (!fileCVOptional.isPresent()) {
@@ -69,5 +69,11 @@ public class FileCVRestController {
         }
         fileCVService.remove(id);
         return new ResponseEntity<>(fileCVOptional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findCVByUserId")
+    public ResponseEntity<Iterable<FileCV>> findByUserId(Long idUser) {
+        Iterable<FileCV> fileCVS = fileCVService.findFileCVById(idUser);
+        return new ResponseEntity<>(fileCVS, HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.backendmd6.service.impl;
 
 import com.example.backendmd6.model.FileCV;
+import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.repository.FileCVRepository;
 import com.example.backendmd6.service.FileCVService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class FileCVServiceImpl implements FileCVService {
     @Override
     public void remove(Long id) {
         fileCVRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<FileCV> findFileCVById(Long id) {
+        return fileCVRepository.findFileCVById(id);
     }
 }
