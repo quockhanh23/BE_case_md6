@@ -34,8 +34,8 @@ public class AdminRestController {
 
     // Show tất cả tin tuyển dụng
     @GetMapping("/findRecruitment")
-    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment(@PageableDefault(value = 1) Pageable pageable) {
-        Iterable<Recruitment> statusRecruitments = recruitmentService.findAllPaging(pageable);
+    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment() {
+        Iterable<Recruitment> statusRecruitments = recruitmentService.findAll();
         return new ResponseEntity<>(statusRecruitments, HttpStatus.OK);
     }
 
