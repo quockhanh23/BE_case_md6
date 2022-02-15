@@ -34,8 +34,8 @@ public class AdminRestController {
 
     // Show tất cả tin tuyển dụng
     @GetMapping("/findRecruitment")
-    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment(@PageableDefault(value = 3) Pageable pageable) {
-        Iterable<Recruitment> statusRecruitments = recruitmentService.findAll(pageable);
+    public ResponseEntity<Iterable<Recruitment>> findAllRecruitment() {
+        Iterable<Recruitment> statusRecruitments = recruitmentService.findAll();
         return new ResponseEntity<>(statusRecruitments, HttpStatus.OK);
     }
 
@@ -108,6 +108,18 @@ public class AdminRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Optional<StatusEnterprise> statusEnterprise = statusEnterpriseService.findById(3L);
+        optionalProfileEnterprise.get().setStatusEnterpriseId(statusEnterprise.get());
+        profileEnterpriseService.save(optionalProfileEnterprise.get());
+        return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);
+    }
+    // đổi trạng thái doanh nghiệp sang "Công ty được đề xuất"
+    @DeleteMapping("/changeVIP/{id}")
+    public ResponseEntity<ProfileEnterprise> changeVIP(@PathVariable Long id) {
+        Optional<ProfileEnterprise> optionalProfileEnterprise = profileEnterpriseService.findById(id);
+        if (!optionalProfileEnterprise.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<StatusEnterprise> statusEnterprise = statusEnterpriseService.findById(4L);
         optionalProfileEnterprise.get().setStatusEnterpriseId(statusEnterprise.get());
         profileEnterpriseService.save(optionalProfileEnterprise.get());
         return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);

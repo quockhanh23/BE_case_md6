@@ -5,9 +5,13 @@ import com.example.backendmd6.repository.RecruitmentRepository;
 import com.example.backendmd6.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +43,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     @Override
     public Iterable<Recruitment> search(String key) {
         return recruitmentRepository.search(key);
+    }
+
+    @Override
+    public Iterable<Recruitment> findAll() {
+        return recruitmentRepository.findAll();
     }
 
     @Override
@@ -95,6 +104,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> findRecruitmentByAddress8() {
         return recruitmentRepository.findRecruitmentByAddress8();
     }
+
     @Override
     public Iterable<Recruitment> sortOdd() {
         return recruitmentRepository.sortOdd();
@@ -109,10 +119,22 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> findRecruitmentByAddress10() {
         return recruitmentRepository.findRecruitmentByAddress10();
     }
+
     @Override
-    public Page<Recruitment> findAll(Pageable pageable) {
-        return recruitmentRepository.findAll(pageable);
+    public List<Recruitment> findAllPaging(Integer pageNo, Integer pageSize, String sortBy) {
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+            Page<Recruitment> pagedResult = recruitmentRepository.findAll(paging);
+
+            if (pagedResult.hasContent()) {
+                return pagedResult.getContent();
+            } else {
+                return new ArrayList<Recruitment>();
+            }
+        }
     }
+
 
     @Override
     public Iterable<Recruitment> findRecruitmentByStatusRecruitmentId() {

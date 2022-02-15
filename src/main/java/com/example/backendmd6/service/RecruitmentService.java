@@ -6,11 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RecruitmentService {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
     Iterable<Recruitment> search(String key);
+
+    Iterable<Recruitment>findAll();
 
     Iterable<Recruitment> sortNew();
 
@@ -44,7 +47,7 @@ public interface RecruitmentService {
 
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
-    Page<Recruitment> findAll(Pageable pageable);
+    List<Recruitment> findAllPaging(Integer pageNo, Integer pageSize, String sortBy);
 
     Optional<Recruitment> findById(Long id);
 
