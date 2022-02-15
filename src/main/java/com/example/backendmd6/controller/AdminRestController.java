@@ -112,6 +112,18 @@ public class AdminRestController {
         profileEnterpriseService.save(optionalProfileEnterprise.get());
         return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);
     }
+    // đổi trạng thái doanh nghiệp sang "Công ty được đề xuất"
+    @DeleteMapping("/changeVIP/{id}")
+    public ResponseEntity<ProfileEnterprise> changeVIP(@PathVariable Long id) {
+        Optional<ProfileEnterprise> optionalProfileEnterprise = profileEnterpriseService.findById(id);
+        if (!optionalProfileEnterprise.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<StatusEnterprise> statusEnterprise = statusEnterpriseService.findById(4L);
+        optionalProfileEnterprise.get().setStatusEnterpriseId(statusEnterprise.get());
+        profileEnterpriseService.save(optionalProfileEnterprise.get());
+        return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);
+    }
 
     // đổi trạng thái doanh nghiệp sang đã kích hoạt
     @DeleteMapping("/changeActive/{id}")
