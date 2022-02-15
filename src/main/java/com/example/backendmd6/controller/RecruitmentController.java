@@ -138,5 +138,4 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByStatusRecruitmentId();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-
 }
