@@ -26,7 +26,7 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     Iterable<Recruitment> sortOdd();
 
     @Query(value = "select * from recruitment where status_recruitment_id = 2 and 3", nativeQuery = true)
-    Page<Recruitment> findAll(Pageable pageable);
+    Page<Recruitment> findAllPaging(Pageable pageable);
 
     @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);

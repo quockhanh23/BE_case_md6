@@ -42,6 +42,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
+    public Iterable<Recruitment> findAll() {
+        return recruitmentRepository.findAll();
+    }
+
+    @Override
     public Iterable<Recruitment> sortNew() {
         return recruitmentRepository.sortNew();
     }
@@ -95,6 +100,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> findRecruitmentByAddress8() {
         return recruitmentRepository.findRecruitmentByAddress8();
     }
+
     @Override
     public Iterable<Recruitment> sortOdd() {
         return recruitmentRepository.sortOdd();
@@ -109,10 +115,12 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> findRecruitmentByAddress10() {
         return recruitmentRepository.findRecruitmentByAddress10();
     }
+
     @Override
-    public Page<Recruitment> findAll(Pageable pageable) {
-        return recruitmentRepository.findAll(pageable);
+    public Page<Recruitment> findAllPaging(Pageable pageable) {
+        return recruitmentRepository.findAllPaging(pageable);
     }
+
 
     @Override
     public Iterable<Recruitment> findRecruitmentByStatusRecruitmentId() {

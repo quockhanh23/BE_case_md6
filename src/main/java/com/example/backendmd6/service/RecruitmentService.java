@@ -12,6 +12,8 @@ public interface RecruitmentService {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
     Iterable<Recruitment> search(String key);
 
+    Iterable<Recruitment>findAll();
+
     Iterable<Recruitment> sortNew();
 
     Iterable<Recruitment> findAllByOrderByDateBeginDesc();
@@ -44,7 +46,7 @@ public interface RecruitmentService {
 
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
-    Page<Recruitment> findAll(Pageable pageable);
+    Page<Recruitment> findAllPaging(Pageable pageable);
 
     Optional<Recruitment> findById(Long id);
 

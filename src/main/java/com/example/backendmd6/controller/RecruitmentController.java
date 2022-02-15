@@ -30,10 +30,15 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
-    @GetMapping("")
-    public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 3) Pageable pageable) {
-        Page<Recruitment> recruitments = recruitmentService.findAll(pageable);
+    @GetMapping("/paging")
+    public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 2) Pageable pageable) {
+        Page<Recruitment> recruitments = recruitmentService.findAllPaging(pageable);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+    @GetMapping()
+    public ResponseEntity<Iterable<Recruitment>>findAll(){
+        Iterable<Recruitment> recruitments = recruitmentService.findAll();
+        return new ResponseEntity<>(recruitments,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -78,10 +83,10 @@ public class RecruitmentController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q, @PageableDefault(value = 7) Pageable pageable) {
+    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q, @PageableDefault(value = 1) Pageable pageable) {
         Iterable<Recruitment> recruitments;
         if (Objects.equals(q, "")) {
-            recruitments = recruitmentService.findAll(pageable);
+            recruitments = recruitmentService.findAllPaging(pageable);
         } else {
             recruitments = recruitmentService.search(q);
         }
