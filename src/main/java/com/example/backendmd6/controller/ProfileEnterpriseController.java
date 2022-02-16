@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@PropertySource("classpath:application.properties")
+    @PropertySource("classpath:application.properties")
 @RequestMapping("/api/profileEnterprises")
 public class ProfileEnterpriseController {
     @Autowired
@@ -49,22 +49,17 @@ public class ProfileEnterpriseController {
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
 
-    @PutMapping("/profileEnterprises/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<ProfileEnterprise> updateProfileEnterprise(
             @PathVariable Long id,@RequestBody ProfileEnterprise profileEnterprise) {
         Optional<ProfileEnterprise> profileEnterpriseOptional = this.profileEnterpriseService.findById(id);
         if (!profileEnterpriseOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        profileEnterprise.setId(profileEnterpriseOptional.get().getId());
-        profileEnterprise.setStatusEnterpriseId(profileEnterpriseOptional.get().getStatusEnterpriseId());
-        profileEnterprise.setImage(profileEnterpriseOptional.get().getImage());
-        profileEnterprise.setEmail(profileEnterpriseOptional.get().getEmail());
-        profileEnterprise.setEnabled(profileEnterpriseOptional.get().isEnabled());
-        profileEnterprise.setPassword(profileEnterpriseOptional.get().getPassword());
-        profileEnterprise.setRoles(profileEnterpriseOptional.get().getRoles());
-        profileEnterprise.setConfirmPassword(profileEnterpriseOptional.get().getConfirmPassword());
-        profileEnterpriseService.save(profileEnterprise);
-        return new ResponseEntity<>(profileEnterprise, HttpStatus.OK);
+        profileEnterpriseOptional.get().setLinkFacebook(profileEnterprise.getLinkFacebook());
+        profileEnterpriseOptional.get().setImage(profileEnterprise.getImage());
+        profileEnterpriseOptional.get().setNameCompany(profileEnterprise.getNameCompany());
+        profileEnterpriseService.save(profileEnterpriseOptional.get());
+        return new ResponseEntity<>(profileEnterpriseOptional.get(), HttpStatus.OK);
     }
 }
