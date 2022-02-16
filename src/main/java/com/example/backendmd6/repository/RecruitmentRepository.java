@@ -25,7 +25,7 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     @Query(value = "select * from recruitment order by id asc  ", nativeQuery = true)
     Iterable<Recruitment> sortOdd();
 
-    @Query(value = "select * from recruitment where status_recruitment_id = 2 and 3", nativeQuery = true)
+    @Query(value = "select * from recruitment where status_recruitment_id = 3 ", nativeQuery = true)
     Page<Recruitment> findAllPaging(Pageable pageable);
 
     @Query(value = "select * from recruitment where profile_enterprise_id=:id order by id desc ", nativeQuery = true)
@@ -73,4 +73,6 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
 
     @Query(value = "select * from recruitment where status_recruitment_id like 3 order by date_end desc  ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
+
+
 }

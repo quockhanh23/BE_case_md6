@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RecruitmentService {
@@ -46,7 +47,7 @@ public interface RecruitmentService {
 
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
-    Page<Recruitment> findAllPaging(Pageable pageable);
+    List<Recruitment> findAllPaging(Integer pageNo, Integer pageSize, String sortBy);
 
     Optional<Recruitment> findById(Long id);
 

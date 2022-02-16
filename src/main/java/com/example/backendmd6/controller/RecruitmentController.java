@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,15 +31,22 @@ public class RecruitmentController {
     private ProfileEnterpriseService profileEnterpriseService;
     @Autowired
     private StatusRecruitmentService statusRecruitmentService;
-    @GetMapping("/paging")
-    public ResponseEntity<Page<Recruitment>> showAll(@PageableDefault(value = 2) Pageable pageable) {
-        Page<Recruitment> recruitments = recruitmentService.findAllPaging(pageable);
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+
+    @GetMapping("paging")
+    public ResponseEntity<List<Recruitment>> getAllRecruitment(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy)
+    {
+        List<Recruitment> list = recruitmentService.findAllPaging(pageNo, pageSize, sortBy);
+
+        return new ResponseEntity<List<Recruitment>>(list,HttpStatus.OK);
     }
+
     @GetMapping()
-    public ResponseEntity<Iterable<Recruitment>>findAll(){
+    public ResponseEntity<Iterable<Recruitment>> findAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
-        return new ResponseEntity<>(recruitments,HttpStatus.OK);
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -83,10 +91,10 @@ public class RecruitmentController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q, @PageableDefault(value = 1) Pageable pageable) {
+    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q) {
         Iterable<Recruitment> recruitments;
         if (Objects.equals(q, "")) {
-            recruitments = recruitmentService.findAllPaging(pageable);
+            recruitments = recruitmentService.findAll();
         } else {
             recruitments = recruitmentService.search(q);
         }
@@ -111,6 +119,7 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
@@ -129,5 +138,4 @@ public class RecruitmentController {
         Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByStatusRecruitmentId();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-
 }
