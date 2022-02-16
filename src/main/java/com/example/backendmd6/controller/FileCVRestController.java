@@ -1,8 +1,10 @@
 package com.example.backendmd6.controller;
 
 import com.example.backendmd6.model.*;
+import com.example.backendmd6.service.ApplyNowService;
 import com.example.backendmd6.service.FileCVService;
 import com.example.backendmd6.service.ProfileUserService;
+import com.example.backendmd6.service.StatusConApplyNowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +26,11 @@ public class FileCVRestController {
     @Autowired
     private ProfileUserService userService;
 
+    @Autowired
+    private ApplyNowService applyNowService;
+
+    @Autowired
+    private StatusConApplyNowService statusConApplyNowService;
     // Show tất cả cv hiện có
     @GetMapping("")
     public ResponseEntity<Iterable<FileCV>> findAllCV() {
@@ -69,5 +77,17 @@ public class FileCVRestController {
         }
         fileCVService.remove(id);
         return new ResponseEntity<>(fileCVOptional.get(), HttpStatus.OK);
+    }
+    //Gửi hồ sơ để applyNow
+    @GetMapping("submitCv")
+    public ResponseEntity<ApplyNow> submitCv(@RequestParam Long idUser,@RequestBody Recruitment recruitment){
+        Iterable<FileCV> fileCV = fileCVService.findByProfileUserId1(idUser);
+        List<FileCV> list = (List<FileCV>) fileCV;
+        FileCV fileCV1 = list.get(0);
+        Long idStatusCon = 1L;
+        Optional<StatusConfirmOfApplyNow> statusConfirmOfApplyNow = statusConApplyNowService.findById(idStatusCon);
+        ApplyNow applyNow = new ApplyNow(fileCV1,recruitment,statusConfirmOfApplyNow.get());
+        applyNowService.save(applyNow);
+        return new ResponseEntity<>(applyNow,HttpStatus.OK);
     }
 }

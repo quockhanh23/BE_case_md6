@@ -22,4 +22,5 @@ public class FileCV {
     @ManyToOne
     @JoinColumn(name = "profileUser_id")
     ProfileUser profileUserId;
+
 }
