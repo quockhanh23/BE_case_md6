@@ -56,13 +56,14 @@ public class ProfileEnterpriseController {
         if (!profileEnterpriseOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        profileEnterpriseOptional.get().setLinkFacebook(profileEnterprise.getLinkFacebook());
-        profileEnterpriseOptional.get().setLinkGoogleMaps(profileEnterprise.getLinkGoogleMaps());
-        profileEnterpriseOptional.get().setImage(profileEnterprise.getImage());
         profileEnterpriseOptional.get().setNameCompany(profileEnterprise.getNameCompany());
         profileEnterpriseOptional.get().setDescription(profileEnterprise.getDescription());
+        profileEnterpriseOptional.get().setAddressCompany(profileEnterprise.getAddressCompany());
         profileEnterpriseOptional.get().setNumberOfEmployees(profileEnterprise.getNumberOfEmployees());
         profileEnterpriseOptional.get().setPhoneNumbers(profileEnterprise.getPhoneNumbers());
+        profileEnterpriseOptional.get().setLinkWebsites(profileEnterprise.getLinkWebsites());
+        profileEnterpriseOptional.get().setLinkFacebook(profileEnterprise.getLinkFacebook());
+        profileEnterpriseOptional.get().setLinkGoogleMaps(profileEnterprise.getLinkGoogleMaps());
         profileEnterpriseService.save(profileEnterpriseOptional.get());
         return new ResponseEntity<>(profileEnterpriseOptional.get(), HttpStatus.OK);
     }
