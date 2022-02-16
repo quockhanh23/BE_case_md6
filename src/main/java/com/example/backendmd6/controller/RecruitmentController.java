@@ -82,7 +82,7 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
 
-    // sửa job2
+    // sửa job2( đang dùng)
     @PutMapping("/edit")
     public ResponseEntity<Recruitment> edit2(@RequestBody Recruitment recruitment,
                                              @RequestParam Long idRecruitment) {
