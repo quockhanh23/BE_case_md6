@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-    @PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.properties")
 @RequestMapping("/api/profileEnterprises")
 public class ProfileEnterpriseController {
     @Autowired
@@ -51,14 +51,18 @@ public class ProfileEnterpriseController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<ProfileEnterprise> updateProfileEnterprise(
-            @PathVariable Long id,@RequestBody ProfileEnterprise profileEnterprise) {
+            @PathVariable Long id, @RequestBody ProfileEnterprise profileEnterprise) {
         Optional<ProfileEnterprise> profileEnterpriseOptional = this.profileEnterpriseService.findById(id);
         if (!profileEnterpriseOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         profileEnterpriseOptional.get().setLinkFacebook(profileEnterprise.getLinkFacebook());
+        profileEnterpriseOptional.get().setLinkGoogleMaps(profileEnterprise.getLinkGoogleMaps());
         profileEnterpriseOptional.get().setImage(profileEnterprise.getImage());
         profileEnterpriseOptional.get().setNameCompany(profileEnterprise.getNameCompany());
+        profileEnterpriseOptional.get().setDescription(profileEnterprise.getDescription());
+        profileEnterpriseOptional.get().setNumberOfEmployees(profileEnterprise.getNumberOfEmployees());
+        profileEnterpriseOptional.get().setPhoneNumbers(profileEnterprise.getPhoneNumbers());
         profileEnterpriseService.save(profileEnterpriseOptional.get());
         return new ResponseEntity<>(profileEnterpriseOptional.get(), HttpStatus.OK);
     }
