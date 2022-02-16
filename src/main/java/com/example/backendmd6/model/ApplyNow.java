@@ -21,4 +21,10 @@ public class ApplyNow {
     @ManyToOne
     @JoinColumn(name = "statusConfirm_id")
     StatusConfirmOfApplyNow statusConfirmId;
+
+    public ApplyNow(FileCV fileCVId, Recruitment recruitmentId, StatusConfirmOfApplyNow statusConfirmId) {
+        this.fileCVId = fileCVId;
+        this.recruitmentId = recruitmentId;
+        this.statusConfirmId = statusConfirmId;
+    }
 }

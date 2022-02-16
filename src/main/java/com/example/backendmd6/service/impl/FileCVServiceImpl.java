@@ -33,4 +33,9 @@ public class FileCVServiceImpl implements FileCVService {
     public void remove(Long id) {
         fileCVRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<FileCV> findByProfileUserId1(Long idU) {
+        return  fileCVRepository.findFileCVByProfileUserId1(idU);
+    }
 }
