@@ -79,7 +79,7 @@ public class FileCVRestController {
         return new ResponseEntity<>(fileCVOptional.get(), HttpStatus.OK);
     }
     //Gửi hồ sơ để applyNow
-    @GetMapping("submitCv")
+    @PostMapping("submitCv")
     public ResponseEntity<ApplyNow> submitCv(@RequestParam Long idUser,@RequestBody Recruitment recruitment){
         Iterable<FileCV> fileCV = fileCVService.findByProfileUserId1(idUser);
         List<FileCV> list = (List<FileCV>) fileCV;
