@@ -90,4 +90,10 @@ public class FileCVRestController {
         applyNowService.save(applyNow);
         return new ResponseEntity<>(applyNow,HttpStatus.OK);
     }
+
+    @GetMapping("/findCVByUserId")
+    public ResponseEntity<Iterable<FileCV>> findByUserId(Long idUser) {
+        Iterable<FileCV> fileCVS = fileCVService.findFileCVById(idUser);
+        return new ResponseEntity<>(fileCVS, HttpStatus.OK);
+    }
 }
