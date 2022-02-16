@@ -36,11 +36,10 @@ public class RecruitmentController {
     public ResponseEntity<List<Recruitment>> getAllRecruitment(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy)
-    {
+            @RequestParam(defaultValue = "id") String sortBy) {
         List<Recruitment> list = recruitmentService.findAllPaging(pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<Recruitment>>(list,HttpStatus.OK);
+        return new ResponseEntity<List<Recruitment>>(list, HttpStatus.OK);
     }
 
     @GetMapping()
@@ -81,6 +80,19 @@ public class RecruitmentController {
         recruitment.setStatusRecruitmentId(statusRecruitment.get());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
+    }
+
+    // sửa job2
+    @PutMapping("/edit")
+    public ResponseEntity<Recruitment> edit2(@RequestBody Recruitment recruitment,
+                                             @RequestParam Long idRecruitment) {
+        Recruitment recruitment1 = recruitmentService.findById(idRecruitment).get();
+        recruitment.setId(recruitment1.getId());
+        recruitment.setDateBegin(recruitment1.getDateBegin());
+        recruitment.setStatusRecruitmentId(recruitment1.getStatusRecruitmentId());
+        recruitment.setProfileEnterprise(recruitment1.getProfileEnterprise());
+        recruitmentService.save(recruitment);
+        return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
