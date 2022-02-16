@@ -112,6 +112,7 @@ public class AdminRestController {
         profileEnterpriseService.save(optionalProfileEnterprise.get());
         return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);
     }
+
     // đổi trạng thái doanh nghiệp sang "Công ty được đề xuất"
     @DeleteMapping("/changeVIP/{id}")
     public ResponseEntity<ProfileEnterprise> changeVIP(@PathVariable Long id) {
@@ -172,6 +173,19 @@ public class AdminRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(3L);
+        optionalRecruitment.get().setStatusRecruitmentId(statusRecruitment.get());
+        recruitmentService.save(optionalRecruitment.get());
+        return new ResponseEntity<>(optionalRecruitment.get(), HttpStatus.OK);
+    }
+
+    // đổi trạng thái tin đăng tuyển proposal VIP
+    @DeleteMapping("/changeLockRecruitment/{id}")
+    public ResponseEntity<Recruitment> changeLockRecruitment(@PathVariable Long id) {
+        Optional<Recruitment> optionalRecruitment = recruitmentService.findById(id);
+        if (!optionalRecruitment.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(4L);
         optionalRecruitment.get().setStatusRecruitmentId(statusRecruitment.get());
         recruitmentService.save(optionalRecruitment.get());
         return new ResponseEntity<>(optionalRecruitment.get(), HttpStatus.OK);
