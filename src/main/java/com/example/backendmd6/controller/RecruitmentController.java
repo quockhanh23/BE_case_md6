@@ -33,17 +33,12 @@ public class RecruitmentController {
     private StatusRecruitmentService statusRecruitmentService;
 
     @GetMapping("paging")
-    public ResponseEntity<List<Recruitment>> getAllRecruitment(
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy)
-    {
-        List<Recruitment> list = recruitmentService.findAllPaging(pageNo, pageSize, sortBy);
-
-        return new ResponseEntity<List<Recruitment>>(list,HttpStatus.OK);
+    public ResponseEntity<Page<Recruitment>> getAllRecruitment(@PageableDefault(value = 5) Pageable pageable){
+        Page<Recruitment> recruitments = recruitmentService.findAll12(pageable);
+        return new ResponseEntity<>(recruitments,HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("listRec")
     public ResponseEntity<Iterable<Recruitment>> findAll() {
         Iterable<Recruitment> recruitments = recruitmentService.findAll();
         return new ResponseEntity<>(recruitments, HttpStatus.OK);

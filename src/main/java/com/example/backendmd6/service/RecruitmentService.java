@@ -47,7 +47,7 @@ public interface RecruitmentService {
 
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
-    List<Recruitment> findAllPaging(Integer pageNo, Integer pageSize, String sortBy);
+    Page<Recruitment> findAll12(Pageable pageable);
 
     Optional<Recruitment> findById(Long id);
 

@@ -120,24 +120,14 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return recruitmentRepository.findRecruitmentByAddress10();
     }
 
-    @Override
-    public List<Recruitment> findAllPaging(Integer pageNo, Integer pageSize, String sortBy) {
-        {
-            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-
-            Page<Recruitment> pagedResult = recruitmentRepository.findAll(paging);
-
-            if (pagedResult.hasContent()) {
-                return pagedResult.getContent();
-            } else {
-                return new ArrayList<Recruitment>();
-            }
-        }
-    }
-
 
     @Override
     public Iterable<Recruitment> findRecruitmentByStatusRecruitmentId() {
         return recruitmentRepository.findRecruitmentByStatusRecruitmentId();
+    }
+
+    @Override
+    public Page<Recruitment> findAll12(Pageable pageable) {
+        return recruitmentRepository.findAllPaging(pageable);
     }
 }
