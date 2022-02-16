@@ -55,7 +55,7 @@ public class RecruitmentController {
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment, @RequestParam Long idEnterprise) {
         recruitment.setDateBegin(LocalDateTime.now());
         Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById(idEnterprise);
-        Long idStatusRec = 1L;
+        Long idStatusRec = 2L;
         Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(idStatusRec);
         recruitment.setStatusRecruitmentId(statusRecruitment.get());
         recruitment.setProfileEnterprise(profileEnterprise.get());
