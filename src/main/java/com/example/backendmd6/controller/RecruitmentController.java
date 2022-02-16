@@ -63,24 +63,15 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
 
-    // sửa job
-    @PutMapping("/edit/{idRecruitment}")
-    public ResponseEntity<Recruitment> edit(@RequestBody Recruitment recruitment,
-                                            @PathVariable Long idRecruitment) {
-        Optional<Recruitment> recruitmentOptional = recruitmentService.findById(idRecruitment);
-        recruitment.setId(recruitmentOptional.get().getId());
-        Optional<ProfileEnterprise> profileEnterprise = profileEnterpriseService.findById
-                (recruitmentOptional.get().getProfileEnterprise().getId().longValue());
-        recruitment.setProfileEnterprise(profileEnterprise.get());
-        Optional<StatusRecruitment> statusRecruitment = statusRecruitmentService.findById(1L);
-        recruitment.setStatusRecruitmentId(statusRecruitment.get());
-        recruitmentService.save(recruitment);
-        return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Recruitment> update(@PathVariable Long id, @RequestBody Recruitment recruitment) {
-        recruitment.setId(id);
+    // sửa job2( đang dùng)
+    @PutMapping("/edit")
+    public ResponseEntity<Recruitment> edit2(@RequestBody Recruitment recruitment,
+                                             @RequestParam Long idRecruitment) {
+        Recruitment recruitment1 = recruitmentService.findById(idRecruitment).get();
+        recruitment.setId(recruitment1.getId());
+        recruitment.setDateBegin(recruitment1.getDateBegin());
+        recruitment.setStatusRecruitmentId(recruitment1.getStatusRecruitmentId());
+        recruitment.setProfileEnterprise(recruitment1.getProfileEnterprise());
         recruitmentService.save(recruitment);
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
