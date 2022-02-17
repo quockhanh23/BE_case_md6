@@ -135,70 +135,10 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-    // Cụm tìm theo thành phố 1-10
-    @GetMapping("/address1")
-    public ResponseEntity<Iterable<Recruitment>> address1() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress1();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address2")
-    public ResponseEntity<Iterable<Recruitment>> address2() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress2();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address3")
-    public ResponseEntity<Iterable<Recruitment>> address3() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress3();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address4")
-    public ResponseEntity<Iterable<Recruitment>> address4() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress4();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address5")
-    public ResponseEntity<Iterable<Recruitment>> address5() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress5();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address6")
-    public ResponseEntity<Iterable<Recruitment>> address6() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress6();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address7")
-    public ResponseEntity<Iterable<Recruitment>> address7() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress7();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address8")
-    public ResponseEntity<Iterable<Recruitment>> address8() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress8();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address9")
-    public ResponseEntity<Iterable<Recruitment>> address9() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress9();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
-
-    @GetMapping("/address10")
-    public ResponseEntity<Iterable<Recruitment>> address10() {
-        Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress10();
-        return new ResponseEntity<>(recruitments, HttpStatus.OK);
-    }
 
     @GetMapping("/findRecruitment")
-    public ResponseEntity<Iterable<Recruitment>> findRecruitment(String address, String title, String experience, Long min, Long max, String q) {
-        Iterable<Recruitment> recruitments =recruitmentService.findRecruitment(address,title,experience,min,max,q);
+    public ResponseEntity<Iterable<Recruitment>> findRecruitment(String address, String title, String experience, Long min, Long max, String name) {
+        Iterable<Recruitment> recruitments =recruitmentService.findRecruitment(address,title,experience,min,max,name);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 }

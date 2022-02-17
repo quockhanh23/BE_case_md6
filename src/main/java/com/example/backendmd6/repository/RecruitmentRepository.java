@@ -35,51 +35,6 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     @Query(value = "select * from recruitment where address like %:q%", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress(@Param("q") String q);
 
-    @Modifying
-    @Query(value = "select * from recruitment where address like %:q% "
-            , nativeQuery = true)
-    Iterable<Recruitment> findAllBy(@Param("q") String q);
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress1();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Bắc Ninh'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress2();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Hà Nam'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress3();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Hải Dương'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress4();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Hải Phòng'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress5();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Hưng Yên'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress6();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Nam Định'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress7();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Ninh Bình'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress8();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Thái Bình'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress9();
-
-    @Modifying
-    @Query(value = "select * from recruitment where address like 'Vĩnh Phúc'", nativeQuery = true)
-    Iterable<Recruitment> findRecruitmentByAddress10();
-
     @Query(value = "select * from recruitment where status_recruitment_id like 3 order by date_end desc  ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
@@ -101,13 +56,13 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
             "                     as theoKinhNghiem\n" +
             "            where salary between :min and :max) as theoluong) as theo_luong\n" +
             "         join enterprise_table on theo_luong.profile_enterprise_id = enterprise_table.id\n" +
-            "where name_company like %:q%", nativeQuery = true)
+            "where name_company like %:name%", nativeQuery = true)
     Iterable<Recruitment> findRecruitment(@Param("address") String address,
                                           @Param("title") String title,
                                           @Param("experience") String experience,
                                           @Param("min") Long min,
                                           @Param("max") Long max,
-                                          @Param("q") String q
-                                          );
+                                          @Param("name") String name
+    );
 
 }
