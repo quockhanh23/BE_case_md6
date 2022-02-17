@@ -32,6 +32,15 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(@Param("id") Long id);
 
     @Modifying
+    @Query(value = "select * from recruitment where address like %:q%", nativeQuery = true)
+    Iterable<Recruitment> findRecruitmentByAddress(@Param("q") String q);
+
+    @Modifying
+    @Query(value = "select * from recruitment where address like %:q% "
+            , nativeQuery = true)
+    Iterable<Recruitment> findAllBy(@Param("q") String q);
+
+    @Modifying
     @Query(value = "select * from recruitment where address like 'Hà Nội'", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByAddress1();
 
@@ -74,5 +83,31 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
     @Query(value = "select * from recruitment where status_recruitment_id like 3 order by date_end desc  ", nativeQuery = true)
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
 
+    @Query(value = "select *\n" +
+            "from (select *\n" +
+            "      from (select *\n" +
+            "            from (select *\n" +
+            "                  from (select *\n" +
+            "                        from (select *\n" +
+            "                              from (select *\n" +
+            "                                    from recruitment\n" +
+            "                                    where status_recruitment_id = 2 or status_recruitment_id = 3)\n" +
+            "                                       as theoTrangThai\n" +
+            "                              where address like %:address%)\n" +
+            "                                 as theoTP\n" +
+            "                        where title like %:title%)\n" +
+            "                           as theoNghanh\n" +
+            "                  where experience like %:experience%)\n" +
+            "                     as theoKinhNghiem\n" +
+            "            where salary between :min and :max) as theoluong) as theo_luong\n" +
+            "         join enterprise_table on theo_luong.profile_enterprise_id = enterprise_table.id\n" +
+            "where name_company like %:q%", nativeQuery = true)
+    Iterable<Recruitment> findRecruitment(@Param("address") String address,
+                                          @Param("title") String title,
+                                          @Param("experience") String experience,
+                                          @Param("min") Long min,
+                                          @Param("max") Long max,
+                                          @Param("q") String q
+                                          );
 
 }

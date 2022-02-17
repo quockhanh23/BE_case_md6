@@ -35,6 +35,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(id);
     }
 
+    @Override
+    public Iterable<Recruitment> findRecruitment(String address, String title, String experience, Long min, Long max, String q) {
+        return recruitmentRepository.findRecruitment(address,title,experience,min,max,q);
+    }
+
 //    @Override
 //    public Iterable<Recruitment> findAllByCityContaining(String title) {
 //        return recruitmentRepository.findAllByAddressContaining(title);
@@ -63,6 +68,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     @Override
     public Iterable<Recruitment> findRecruitmentByProfileEnterprise(Long id) {
         return recruitmentRepository.findRecruitmentByProfileEnterprise(id);
+    }
+
+    @Override
+    public Iterable<Recruitment> findRecruitmentByAddress(String q) {
+        return recruitmentRepository.findRecruitmentByAddress(q);
     }
 
     @Override

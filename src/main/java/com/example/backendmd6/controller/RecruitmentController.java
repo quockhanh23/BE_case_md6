@@ -125,7 +125,16 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
-
+    @GetMapping("/address")
+    public ResponseEntity<Iterable<Recruitment>> address(@RequestParam String q) {
+        Iterable<Recruitment> recruitments;
+        if (Objects.equals(q, "")) {
+            recruitments = recruitmentService.findAll();
+        } else {
+            recruitments = recruitmentService.findRecruitmentByAddress(q);
+        }
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
     // Cụm tìm theo thành phố 1-10
     @GetMapping("/address1")
     public ResponseEntity<Iterable<Recruitment>> address1() {
@@ -184,6 +193,12 @@ public class RecruitmentController {
     @GetMapping("/address10")
     public ResponseEntity<Iterable<Recruitment>> address10() {
         Iterable<Recruitment> recruitments = recruitmentService.findRecruitmentByAddress10();
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+
+    @GetMapping("/findRecruitment")
+    public ResponseEntity<Iterable<Recruitment>> findRecruitment(String address, String title, String experience, Long min, Long max, String q) {
+        Iterable<Recruitment> recruitments =recruitmentService.findRecruitment(address,title,experience,min,max,q);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 }

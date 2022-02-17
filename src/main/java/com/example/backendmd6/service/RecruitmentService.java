@@ -13,13 +13,15 @@ public interface RecruitmentService {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
     Iterable<Recruitment> search(String key);
 
-    Iterable<Recruitment>findAll();
+    Iterable<Recruitment> findAll();
 
     Iterable<Recruitment> sortNew();
 
     Iterable<Recruitment> findAllByOrderByDateBeginDesc();
 
     Iterable<Recruitment> findRecruitmentByProfileEnterprise(Long id);
+
+    Iterable<Recruitment> findRecruitmentByAddress(String q);
 
     Iterable<Recruitment> findRecruitmentByAddress1();
 
@@ -42,7 +44,6 @@ public interface RecruitmentService {
     Iterable<Recruitment> findRecruitmentByAddress10();
 
 
-
     Iterable<Recruitment> sortOdd();
 
     Iterable<Recruitment> findRecruitmentByStatusRecruitmentId();
@@ -55,4 +56,10 @@ public interface RecruitmentService {
 
     void remove(Long id);
 
+    Iterable<Recruitment> findRecruitment(String address,
+                                           String title,
+                                          String experience,
+                                          Long min,
+                                          Long max,
+                                          String q);
 }
