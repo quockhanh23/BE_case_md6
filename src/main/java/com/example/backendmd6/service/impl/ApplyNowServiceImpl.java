@@ -30,4 +30,9 @@ public class ApplyNowServiceImpl implements ApplyNowService {
     public void remove(Long id) {
         applyNowRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<ApplyNow> findByRecAndCv(Long idRec,Long idCv) {
+        return applyNowRepository.findApplyNowByRecruitmentId1(idRec,idCv);
+    }
 }

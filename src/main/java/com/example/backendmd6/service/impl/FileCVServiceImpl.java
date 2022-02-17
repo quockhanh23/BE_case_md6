@@ -41,6 +41,6 @@ public class FileCVServiceImpl implements FileCVService {
 
     @Override
     public Iterable<FileCV> findFileCVById(Long id) {
-        return fileCVRepository.findFileCVById(id);
+        return fileCVRepository.findFileCVByProfileUserId1(id);
     }
 }
