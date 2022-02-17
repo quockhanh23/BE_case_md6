@@ -92,8 +92,16 @@ public class FileCVRestController {
     }
 
     @GetMapping("/findCVByUserId")
-    public ResponseEntity<Iterable<FileCV>> findByUserId(Long idUser) {
+    public ResponseEntity<FileCV> findByUserId(@RequestParam Long idUser) {
         Iterable<FileCV> fileCVS = fileCVService.findFileCVById(idUser);
-        return new ResponseEntity<>(fileCVS, HttpStatus.OK);
+        List<FileCV> list = (List<FileCV>) fileCVS;
+        FileCV fileCV = list.get(0);
+        return new ResponseEntity<>(fileCV, HttpStatus.OK);
+    }
+    @GetMapping("/findByRecAndCv")
+    public ResponseEntity<List<ApplyNow>> findByRecAndCv(@RequestParam Long idRec,@RequestParam Long idCv){
+        Iterable<ApplyNow> applyNows = applyNowService.findByRecAndCv(idRec,idCv);
+        List<ApplyNow> list = (List<ApplyNow>) applyNows;
+        return new ResponseEntity<>(list,HttpStatus.OK) ;
     }
 }

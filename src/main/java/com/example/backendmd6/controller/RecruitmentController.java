@@ -76,17 +76,26 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment, HttpStatus.OK);
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<Iterable<Recruitment>> search(@RequestParam String q) {
+    @GetMapping("/name/{q}")
+    public ResponseEntity<Iterable<Recruitment>> search(@PathVariable Optional<String> q,@PageableDefault(value = 5) Pageable pageable) {
+        Iterable<Recruitment> recruitments;
+        if (Objects.equals(q.get(), "")) {
+            recruitments = recruitmentService.findAll12(pageable);
+        } else {
+            recruitments = recruitmentService.search(q.get(),pageable);
+        }
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
+    }
+    @GetMapping("/name2")
+    public ResponseEntity<Iterable<Recruitment>> search2(@RequestParam String q) {
         Iterable<Recruitment> recruitments;
         if (Objects.equals(q, "")) {
             recruitments = recruitmentService.findAll();
         } else {
-            recruitments = recruitmentService.search(q);
+            recruitments = recruitmentService.search2(q);
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Recruitment> delete(@PathVariable Long id) {
         recruitmentService.remove(id);
