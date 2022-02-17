@@ -57,8 +57,8 @@ public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> 
             "                           as theoNghanh\n" +
             "                  where experience like %:experience%)\n" +
             "                     as theoKinhNghiem\n" +
-            "            where salary between :min and :max) as theoluong) as theo_luong\n" +
-            "         join enterprise_table on theo_luong.profile_enterprise_id = enterprise_table.id\n" +
+            "            where salary between :min and :max) as theoluong) as theo_Recruitment\n" +
+            "         join enterprise_table on theo_Recruitment.profile_enterprise_id = enterprise_table.id\n" +
             "where name_company like %:name%", nativeQuery = true)
     Iterable<Recruitment> findRecruitment(@Param("address") String address,
                                           @Param("title") String title,
