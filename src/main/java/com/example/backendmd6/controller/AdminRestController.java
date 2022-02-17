@@ -178,7 +178,7 @@ public class AdminRestController {
         return new ResponseEntity<>(optionalRecruitment.get(), HttpStatus.OK);
     }
 
-    // đổi trạng thái tin đăng tuyển proposal VIP
+    // Khóa tin đăng tuyển dụng
     @DeleteMapping("/changeLockRecruitment/{id}")
     public ResponseEntity<Recruitment> changeLockRecruitment(@PathVariable Long id) {
         Optional<Recruitment> optionalRecruitment = recruitmentService.findById(id);
