@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface RecruitmentService {
     //    Iterable<Recruitment> findAllByCityContaining(String title);
-    Iterable<Recruitment> search(String key);
-
+    Page<Recruitment> search(String key,Pageable pageable);
+    Iterable<Recruitment> search2(String key);
     Iterable<Recruitment>findAll();
 
     Iterable<Recruitment> sortNew();

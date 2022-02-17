@@ -41,8 +41,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 //    }
 
     @Override
-    public Iterable<Recruitment> search(String key) {
-        return recruitmentRepository.search(key);
+    public Page<Recruitment> search(String key,Pageable pageable) {
+        return recruitmentRepository.search(key,pageable);
+    }
+
+    @Override
+    public Iterable<Recruitment> search2(String key) {
+        return recruitmentRepository.search2(key);
     }
 
     @Override

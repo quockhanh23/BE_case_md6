@@ -15,8 +15,9 @@ import org.springframework.stereotype.Repository;
 public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> {
     //    Iterable<Recruitment>findAllByAddressContaining(String title);
     @Query("SELECT r FROM Recruitment r WHERE CONCAT(r.title, ' ', r.address, ' ', r.salary) LIKE %?1%")
-    Iterable<Recruitment> search(String key);
-
+    Page<Recruitment> search(String key,Pageable pageable);
+    @Query("SELECT r FROM Recruitment r WHERE CONCAT(r.title, ' ', r.address, ' ', r.salary) LIKE %?1%")
+    Iterable<Recruitment> search2(String key);
     Iterable<Recruitment> findAllByOrderByDateBeginDesc();
 
     @Query(value = "select * from recruitment order by id desc ", nativeQuery = true)
