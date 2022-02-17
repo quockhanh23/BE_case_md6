@@ -35,4 +35,9 @@ public class ApplyNowServiceImpl implements ApplyNowService {
     public Iterable<ApplyNow> findByRecAndCv(Long idRec,Long idCv) {
         return applyNowRepository.findApplyNowByRecruitmentId1(idRec,idCv);
     }
+
+    @Override
+    public Iterable<ApplyNow> findApplyNowByRecruitmentId(Long idRec) {
+        return applyNowRepository.findApplyNowByRecruitmentId(idRec);
+    }
 }

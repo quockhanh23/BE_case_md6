@@ -13,4 +13,7 @@ import java.util.Optional;
 public interface ApplyNowRepository extends JpaRepository<ApplyNow, Long> {
     @Query(value = "select * from apply_now  where recruitment_id = :idRec and filecvid= :idCv",nativeQuery = true)
     Iterable<ApplyNow> findApplyNowByRecruitmentId1(@Param("idRec") Long idRec,@Param("idCv") Long idCv);
+
+    @Query(value = "select * from apply_now  where recruitment_id = :idRec",nativeQuery = true)
+    Iterable<ApplyNow> findApplyNowByRecruitmentId(@Param("idRec") Long idRec);
 }

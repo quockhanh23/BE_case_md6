@@ -104,4 +104,11 @@ public class FileCVRestController {
         List<ApplyNow> list = (List<ApplyNow>) applyNows;
         return new ResponseEntity<>(list,HttpStatus.OK) ;
     }
+    @GetMapping("/findByRec")
+    public ResponseEntity<List<ApplyNow>> findByRecruitmentId(@RequestParam Long idRec){
+        Iterable<ApplyNow> applyNows = applyNowService.findApplyNowByRecruitmentId(idRec);
+        List<ApplyNow> list = (List<ApplyNow>) applyNows;
+        return new ResponseEntity<>(list,HttpStatus.OK) ;
+    }
+
 }
