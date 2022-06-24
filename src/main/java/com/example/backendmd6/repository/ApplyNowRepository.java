@@ -1,13 +1,10 @@
 package com.example.backendmd6.repository;
 
 import com.example.backendmd6.model.ApplyNow;
-import com.example.backendmd6.model.Recruitment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface ApplyNowRepository extends JpaRepository<ApplyNow, Long> {

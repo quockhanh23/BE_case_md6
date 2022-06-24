@@ -6,7 +6,6 @@ import com.example.backendmd6.model.StatusRecruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;
 import com.example.backendmd6.service.StatusRecruitmentService;
-import javafx.beans.DefaultProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,9 +31,9 @@ public class RecruitmentController {
     private StatusRecruitmentService statusRecruitmentService;
 
     @GetMapping("paging")
-    public ResponseEntity<Page<Recruitment>> getAllRecruitment(@PageableDefault(value = 5) Pageable pageable){
+    public ResponseEntity<Page<Recruitment>> getAllRecruitment(@PageableDefault(value = 5) Pageable pageable) {
         Page<Recruitment> recruitments = recruitmentService.findAll12(pageable);
-        return new ResponseEntity<>(recruitments,HttpStatus.OK);
+        return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 
     @GetMapping("listRec")
@@ -77,15 +75,16 @@ public class RecruitmentController {
     }
 
     @GetMapping("/name/{q}")
-    public ResponseEntity<Iterable<Recruitment>> search(@PathVariable Optional<String> q,@PageableDefault(value = 5) Pageable pageable) {
+    public ResponseEntity<Iterable<Recruitment>> search(@PathVariable Optional<String> q, @PageableDefault(value = 5) Pageable pageable) {
         Iterable<Recruitment> recruitments;
         if (Objects.equals(q.get(), "")) {
             recruitments = recruitmentService.findAll12(pageable);
         } else {
-            recruitments = recruitmentService.search(q.get(),pageable);
+            recruitments = recruitmentService.search(q.get(), pageable);
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @GetMapping("/name2")
     public ResponseEntity<Iterable<Recruitment>> search2(@RequestParam String q) {
         Iterable<Recruitment> recruitments;
@@ -96,6 +95,7 @@ public class RecruitmentController {
         }
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Recruitment> delete(@PathVariable Long id) {
         recruitmentService.remove(id);
@@ -147,7 +147,7 @@ public class RecruitmentController {
 
     @GetMapping("/findRecruitment")
     public ResponseEntity<Iterable<Recruitment>> findRecruitment(String address, String title, String experience, Long min, Long max, String name) {
-        Iterable<Recruitment> recruitments =recruitmentService.findRecruitment(address,title,experience,min,max,name);
+        Iterable<Recruitment> recruitments = recruitmentService.findRecruitment(address, title, experience, min, max, name);
         return new ResponseEntity<>(recruitments, HttpStatus.OK);
     }
 }

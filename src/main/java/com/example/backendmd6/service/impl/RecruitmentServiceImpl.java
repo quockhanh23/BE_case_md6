@@ -5,13 +5,9 @@ import com.example.backendmd6.repository.RecruitmentRepository;
 import com.example.backendmd6.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,11 +35,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public Iterable<Recruitment> findRecruitment(String address, String title, String experience, Long min, Long max, String name) {
         return recruitmentRepository.findRecruitment(address,title,experience,min,max,name);
     }
-
-//    @Override
-//    public Iterable<Recruitment> findAllByCityContaining(String title) {
-//        return recruitmentRepository.findAllByAddressContaining(title);
-//    }
 
     @Override
     public Page<Recruitment> search(String key,Pageable pageable) {

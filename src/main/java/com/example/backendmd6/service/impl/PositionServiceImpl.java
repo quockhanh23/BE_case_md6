@@ -2,7 +2,6 @@ package com.example.backendmd6.service.impl;
 
 import com.example.backendmd6.model.Position;
 import com.example.backendmd6.repository.PositionRepository;
-import com.example.backendmd6.repository.WorkRepository;
 import com.example.backendmd6.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

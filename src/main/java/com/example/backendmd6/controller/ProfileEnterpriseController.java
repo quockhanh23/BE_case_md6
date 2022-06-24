@@ -2,7 +2,6 @@ package com.example.backendmd6.controller;
 
 
 import com.example.backendmd6.model.ProfileEnterprise;
-import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.Recruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;

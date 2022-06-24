@@ -1,6 +1,5 @@
 package com.example.backendmd6.service;
 
-import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.ProfileUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
