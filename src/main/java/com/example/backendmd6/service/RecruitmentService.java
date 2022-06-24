@@ -1,19 +1,14 @@
 package com.example.backendmd6.service;
 
-import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.Recruitment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface RecruitmentService {
-    //    Iterable<Recruitment> findAllByCityContaining(String title);
     Iterable<Recruitment> search(String key);
 
-    Iterable<Recruitment>findAll();
+    Iterable<Recruitment> findAll();
 
     Iterable<Recruitment> sortNew();
 
@@ -40,7 +35,6 @@ public interface RecruitmentService {
     Iterable<Recruitment> findRecruitmentByAddress9();
 
     Iterable<Recruitment> findRecruitmentByAddress10();
-
 
 
     Iterable<Recruitment> sortOdd();

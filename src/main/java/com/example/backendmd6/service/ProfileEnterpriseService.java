@@ -29,8 +29,9 @@ public interface ProfileEnterpriseService extends UserDetailsService {
 
     void delete(ProfileEnterprise entity);
 
-    Iterable<ProfileEnterprise>findByNameCompanyContaining(String name);
+    Iterable<ProfileEnterprise> findByNameCompanyContaining(String name);
 
     Iterable<ProfileEnterprise> findAllByStatusLikeOne();
+
     Boolean create(ProfileEnterprise profileEnterprise);
 }

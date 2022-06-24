@@ -1,7 +1,6 @@
 package com.example.backendmd6.service.impl;
 
 import com.example.backendmd6.model.FileCV;
-import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.repository.FileCVRepository;
 import com.example.backendmd6.service.FileCVService;
 import org.springframework.beans.factory.annotation.Autowired;

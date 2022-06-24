@@ -1,12 +1,9 @@
 package com.example.backendmd6.service.impl;
 
-import com.example.backendmd6.model.DataMailDTO;
 import com.example.backendmd6.model.ProfileUser;
 import com.example.backendmd6.model.UserPrinciple;
 import com.example.backendmd6.repository.ProfileUserRepository;
-import com.example.backendmd6.service.MailService;
 import com.example.backendmd6.service.ProfileUserService;
-import com.example.backendmd6.utils.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,18 +11,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ProfileUserServiceImpl implements ProfileUserService {
     @Autowired
     private ProfileUserRepository userRepository;
-
-    @Autowired
-    private MailService mailService;
 
     @Override
     @Transactional
@@ -133,23 +124,6 @@ public class ProfileUserServiceImpl implements ProfileUserService {
 
     @Override
     public Boolean create(ProfileUser profileUser) {
-        try {
-            DataMailDTO dataMail = new DataMailDTO();
-
-            dataMail.setTo(profileUser.getEmail());
-            dataMail.setSubject(Const.SEND_MAIL_SUBJECT.CLIENT_REGISTER);
-
-            Map<String, Object> props = new HashMap<>();
-            props.put("name", profileUser.getFullName());
-            props.put("username", profileUser.getEmail());
-            props.put("password", profileUser.getPassword());
-            dataMail.setProps(props);
-
-            mailService.sendHtmlMail(dataMail, Const.TEMPLATE_FILE_NAME.CLIENT_REGISTER);
-            return true;
-        } catch (MessagingException exp){
-            exp.printStackTrace();
-        }
         return false;
     }
 }

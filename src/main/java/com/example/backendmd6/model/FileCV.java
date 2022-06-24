@@ -12,14 +12,14 @@ public class FileCV {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String fullName;
-    String age;
-    String address;
-    String numberPhone;
-    String experience;
-    String oldWorkplace;
-    String interest;
+    private String fullName;
+    private String age;
+    private String address;
+    private String numberPhone;
+    private String experience;
+    private String oldWorkplace;
+    private String interest;
     @ManyToOne
     @JoinColumn(name = "profileUser_id")
-    ProfileUser profileUserId;
+    private ProfileUser profileUserId;
 }

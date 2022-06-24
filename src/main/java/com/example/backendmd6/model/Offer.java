@@ -14,5 +14,5 @@ public class Offer {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "recruitment_id")
-    Recruitment recruitmentId;
+    private Recruitment recruitmentId;
 }

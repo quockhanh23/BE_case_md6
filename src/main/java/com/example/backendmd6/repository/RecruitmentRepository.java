@@ -1,6 +1,5 @@
 package com.example.backendmd6.repository;
 
-import com.example.backendmd6.model.ProfileEnterprise;
 import com.example.backendmd6.model.Recruitment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public interface RecruitmentRepository extends JpaRepository<Recruitment, Long> {

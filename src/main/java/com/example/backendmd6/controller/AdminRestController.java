@@ -10,8 +10,6 @@ import com.example.backendmd6.service.StatusEnterpriseService;
 import com.example.backendmd6.service.StatusRecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -112,6 +110,7 @@ public class AdminRestController {
         profileEnterpriseService.save(optionalProfileEnterprise.get());
         return new ResponseEntity<>(optionalProfileEnterprise.get(), HttpStatus.OK);
     }
+
     // đổi trạng thái doanh nghiệp sang "Công ty được đề xuất"
     @DeleteMapping("/changeVIP/{id}")
     public ResponseEntity<ProfileEnterprise> changeVIP(@PathVariable Long id) {

@@ -6,11 +6,7 @@ import com.example.backendmd6.model.StatusRecruitment;
 import com.example.backendmd6.service.ProfileEnterpriseService;
 import com.example.backendmd6.service.RecruitmentService;
 import com.example.backendmd6.service.StatusRecruitmentService;
-import javafx.beans.DefaultProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,11 +32,10 @@ public class RecruitmentController {
     public ResponseEntity<List<Recruitment>> getAllRecruitment(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy)
-    {
+            @RequestParam(defaultValue = "id") String sortBy) {
         List<Recruitment> list = recruitmentService.findAllPaging(pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<Recruitment>>(list,HttpStatus.OK);
+        return new ResponseEntity<List<Recruitment>>(list, HttpStatus.OK);
     }
 
     @GetMapping()
@@ -55,7 +50,7 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment.get(), HttpStatus.OK);
     }
 
-    // tạo job mới
+    // Tạo job mới
     @PostMapping("/create")
     public ResponseEntity<Recruitment> create(@RequestBody Recruitment recruitment, @RequestParam Long idEnterprise) {
         recruitment.setDateBegin(LocalDateTime.now());
@@ -68,7 +63,7 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitment, HttpStatus.CREATED);
     }
 
-    // sửa job
+    // Sửa job
     @PutMapping("/edit/{idRecruitment}")
     public ResponseEntity<Recruitment> edit(@RequestBody Recruitment recruitment,
                                             @PathVariable Long idRecruitment) {
@@ -119,6 +114,7 @@ public class RecruitmentController {
         Iterable<ProfileEnterprise> profileEnterprises = profileEnterpriseService.findByNameCompanyContaining(q);
         return new ResponseEntity<>(profileEnterprises, HttpStatus.OK);
     }
+
     @GetMapping("sortNewJob")
     public ResponseEntity<Iterable<Recruitment>> sortNewJob() {
         Iterable<Recruitment> recruitments = recruitmentService.sortNew();
